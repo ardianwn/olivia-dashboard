@@ -13,9 +13,9 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         //
-        $middleware->appendToGroup('twofactor',[
-            Verify2FAMiddleware::class,
-        ]);
+        // $middleware->appendToGroup('twofactor',[
+        //     Verify2FAMiddleware::class,
+        // ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
