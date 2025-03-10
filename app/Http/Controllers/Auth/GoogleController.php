@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Str;
 class GoogleController extends Controller
 {
     public function redirectToGoogle()
@@ -23,12 +23,13 @@ class GoogleController extends Controller
             $user = User::where('email', $googleUser->getEmail())->first();
 
             if (!$user) {
+                $randomPassword = Str::random(12);
                 // Jika user belum ada, buat user baru dengan default role dan status
                 $user = User::create([
                     'name' => $googleUser->getName(),
                     'email' => $googleUser->getEmail(),
-                    'password' => bcrypt('random-password'), // Tidak diperlukan untuk Google login
-                    'role' => 'ketua_tim', // Default role
+                    'password' => bcrypt($randomPassword), // Tidak diperlukan untuk Google login
+                    'role' => $randomPassword, // Default role
                     'status' => 'active', // Default status
                 ]);
             }
