@@ -12,11 +12,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
-        // $middleware->appendToGroup('twofactor',[
-        //     Verify2FAMiddleware::class,
-        // ]);
-    })
+        $middleware->alias([
+            'admin' => \App\Http\Middleware\AdminMiddleware::class,
+        ]);
+    })    
     ->withExceptions(function (Exceptions $exceptions) {
         //
     })->create();

@@ -23,4 +23,17 @@ class User extends Authenticatable
         'role' => 'ketua_tim',
         'status' => 'active',
     ];
+    public function timLomba()
+    {
+        return $this->hasOne(TimLomba::class, 'id_ketua');
+    }
+    public function tim()
+    {
+        return $this->hasOne(TimLomba::class, 'id_ketua');
+    }
+    public function tim_lomba()
+{
+    return $this->hasOne(TimLomba::class, 'id_ketua', 'id');
+}
+
 }
