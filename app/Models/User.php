@@ -13,11 +13,13 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'nim',
         'password',
         'role',
         'status',
         'profile',
-        'ktm'
+        'ktm',
+        'no_wa'
     ];
 
     // Tambahkan default value

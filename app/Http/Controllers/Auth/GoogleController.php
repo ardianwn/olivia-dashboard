@@ -29,7 +29,7 @@ class GoogleController extends Controller
                     'name' => $googleUser->getName(),
                     'email' => $googleUser->getEmail(),
                     'password' => bcrypt($randomPassword), // Tidak diperlukan untuk Google login
-                    'role' => $randomPassword, // Default role
+                    'role' => 'ketua_tim', // Default role
                     'status' => 'active', // Default status
                 ]);
             }

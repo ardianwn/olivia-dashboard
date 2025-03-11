@@ -40,24 +40,24 @@ class DashboardController extends Controller
             'nim' => ['required', 'string', 'max:20', "unique:users,nim,{$user->id}"],
             'no_wa' => ['required', 'string', 'max:15'],
             'password' => ['nullable', 'confirmed', Password::defaults()],
-            'scan_ktm' => ['nullable', 'file', 'mimes:jpg,png,pdf', 'max:2048'],
+            'ktm' => ['nullable', 'file', 'mimes:jpg,png,pdf', 'max:2048'],
             'profile' => ['nullable', 'file', 'mimes:jpg,png', 'max:2048'],
         ]);
     
         // Jika ada file Scan KTM di-upload, simpan file baru
-        if ($request->hasFile('scan_ktm')) {
+        if ($request->hasFile('ktm')) {
             if ($user->ktm) {
                 Storage::disk('public')->delete($user->ktm);
             }
-            $validated['ktm'] = $request->file('scan_ktm')->store('ktm', 'public');
+            $validated['ktm'] = $request->file('ktm')->store('ktm', 'public');
         }
     
         // Jika ada file Foto Anggota di-upload, simpan file baru
-        if ($request->hasFile('foto_anggota')) {
+        if ($request->hasFile('profile')) {
             if ($user->profile) {
                 Storage::disk('public')->delete($user->profile);
             }
-            $validated['profile'] = $request->file('profile')->store('profiles', 'public');
+            $validated['profile'] = $request->file('profile')->store('profile', 'public');
         }
     
         // Jika password diisi, update password
