@@ -28,8 +28,39 @@
                     @endif
 
                     @if(Auth::user()->role === 'admin')
+                        <!-- Link ke Dashboard Admin -->
                         <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
                             {{ __('Dashboard') }}
+                        </x-nav-link>
+                        
+                        <!-- Link ke Manajemen Tim -->
+                        <x-nav-link :href="route('team-management.index')" :active="request()->routeIs('team-management.index')">
+                            {{ __('Tim') }}
+                        </x-nav-link>
+                        
+                        <!-- Link ke Verifikasi Berkas -->
+                        <x-nav-link :href="route('document-verification.index')" :active="request()->routeIs('document-verification.index')">
+                            {{ __('Berkas') }}
+                        </x-nav-link>
+
+                        <!-- Link ke Manajemen Pembayaran -->
+                        <x-nav-link :href="route('payment-management.index')" :active="request()->routeIs('payment-management.index')">
+                            {{ __('Pembayaran') }}
+                        </x-nav-link>
+
+                        <!-- Link ke Laporan Pendaftaran -->
+                        <x-nav-link :href="route('report.index')" :active="request()->routeIs('report.index')">
+                            {{ __('Laporan') }}
+                        </x-nav-link>
+
+                        <!-- Link ke Pengelolaan Kategori Lomba -->
+                        <x-nav-link :href="route('competition-category.index')" :active="request()->routeIs('competition-category.index')">
+                            {{ __('Kategori') }}
+                        </x-nav-link>
+
+                        <!-- Link untuk Mengirim Notifikasi -->
+                        <x-nav-link :href="route('notification.sendNotification')" :active="request()->routeIs('notification.sendNotification')">
+                            {{ __('Kirim Notifikasi') }}
                         </x-nav-link>
                     @endif
                 </div>
