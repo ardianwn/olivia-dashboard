@@ -27,6 +27,10 @@
                         <a href="{{ route('tim.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded shadow hover:bg-blue-700 transition">
                             + Buat Tim
                         </a>
+                    @else
+                    <a href="{{ route('anggota.index') }}" class="bg-blue-500 text-white px-4 py-2 rounded shadow hover:bg-blue-700 transition">
+                        Lanjut
+                    </a>
                     @endif
                 </div>
 

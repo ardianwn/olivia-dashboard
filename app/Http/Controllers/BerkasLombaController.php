@@ -7,27 +7,36 @@ use App\Models\BerkasLomba;
 use App\Models\TimLomba;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Models\PembayaranLomba;
 
 class BerkasLombaController extends Controller
 {
     public function index()
     {
-        $tim = TimLomba::where('id_ketua', Auth::id())->first();
-        if (!$tim) {
-            return redirect()->route('dashboard')->with('error', 'Tim tidak ditemukan.');
-        }
+       // Cari tim berdasarkan ID ketua yang sedang login
+    $tim = TimLomba::where('id_ketua', Auth::id())->first();
 
+    // Jika tim tidak ditemukan, redirect ke halaman pembayaran
+    if (!$tim) {
+        return redirect()->route('pembayaran.index')->with('error', 'Tim tidak ditemukan.');
+    }
+
+    // Periksa apakah pembayaran telah dilakukan
+    $pembayaran = PembayaranLomba::where('id_tim', $tim->id)->first();
+
+    if ($pembayaran) {
+        // Jika sudah membayar, tampilkan halaman berkas
         $berkas = BerkasLomba::where('id_tim', $tim->id)->get();
         return view('berkas.index', compact('berkas', 'tim'));
+    } else {
+        // Jika belum membayar, redirect ke halaman pembayaran
+        return redirect()->route('pembayaran.index')->with('error', 'Lakukan pembayaran terlebih dahulu.');
+    }
     }
 
     public function create()
     {
         $tim = TimLomba::where('id_ketua', Auth::id())->first();
-        if (!$tim) {
-            return redirect()->route('dashboard')->with('error', 'Tim tidak ditemukan.');
-        }
-
         return view('berkas.create', compact('tim'));
     }
 

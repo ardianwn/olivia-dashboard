@@ -11,7 +11,7 @@ class TimLombaController extends Controller
 {
     public function index()
     {
-        $tim = TimLomba::latest()->paginate(10);
+        $tim = TimLomba::where('id_ketua', Auth::id())->get();
         return view('tim.index', compact('tim'));
     }
 

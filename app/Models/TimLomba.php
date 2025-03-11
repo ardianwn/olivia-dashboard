@@ -16,7 +16,8 @@ class TimLomba extends Model
         'cabang_lomba',
         'foto_tim',
         'status_verifikasi',
-        'status_final_submit'
+        'status_final_submit',
+        'id_ketua'
     ];
 
     public function anggota()

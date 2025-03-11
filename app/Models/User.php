@@ -16,6 +16,8 @@ class User extends Authenticatable
         'password',
         'role',
         'status',
+        'profile',
+        'ktm'
     ];
 
     // Tambahkan default value

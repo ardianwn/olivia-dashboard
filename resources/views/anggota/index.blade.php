@@ -23,9 +23,15 @@
 
                 <div class="flex justify-between mb-4">
                     <h3 class="text-lg font-semibold">Anggota Tim: {{ $tim->nama_tim ?? 'Tidak Diketahui' }}</h3>
+                    @if ($data <= 2)
                     <a href="{{ route('anggota.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">
                         + Tambah Anggota
                     </a>
+                    @else
+                    <a href="{{ route('pembayaran.index') }}" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">
+                        Lanjut
+                    </a>
+                    @endif
                 </div>
 
                 <div class="overflow-x-auto">

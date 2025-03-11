@@ -13,24 +13,24 @@ class DetilPesertaController extends Controller
     public function index()
     {
         $tim = TimLomba::where('id_ketua', Auth::id())->first();
-
+        $data = DetilPeserta::where('id_tim', $tim->id)->count();
         if (!$tim) {
-            return redirect()->route('dashboard')->with('error', 'Tim tidak ditemukan.');
+            return redirect()->route('tim.index')->with('error', 'Tim tidak ditemukan.');
         }
 
         $anggota = DetilPeserta::where('id_tim', $tim->id)->get();
-        return view('anggota.index', compact('anggota', 'tim'));
+        return view('anggota.index', compact('anggota', 'tim', 'data'));
     }
 
     public function create()
     {
         $tim = TimLomba::where('id_ketua', Auth::id())->first();
-
+        $data = DetilPeserta::where('id_tim', $tim->id)->count();
         if (!$tim) {
             return redirect()->route('anggota.index')->with('error', 'Anda belum memiliki tim.');
         }
 
-        return view('anggota.create', compact('tim'));
+        return view('anggota.create', compact('tim', 'data'));
     }
 
     public function store(Request $request)

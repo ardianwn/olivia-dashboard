@@ -49,7 +49,7 @@ class PembayaranLombaController extends Controller
         $path = $request->file('bukti_pembayaran')->store('bukti_pembayaran', 'public');
 
         PembayaranLomba::create([
-            'id_tim' => $tim->id,
+            'id_tim' => Auth::id(),
             'bukti_pembayaran' => $path,
             'status_verifikasi' => 'pending',
         ]);

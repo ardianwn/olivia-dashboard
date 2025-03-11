@@ -33,7 +33,6 @@ class GoogleController extends Controller
                     'status' => 'active', // Default status
                 ]);
             }
-
             // Login user
             Auth::login($user);
 

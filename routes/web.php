@@ -32,6 +32,7 @@ Route::middleware(['auth'])->group(function () {
     
     // Dashboard Ketua Tim
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::put('/update', [DashboardController::class, 'update'])->name('pass.update');
 
     // Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

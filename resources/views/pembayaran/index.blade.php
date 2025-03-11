@@ -8,7 +8,7 @@
     <div class="py-8">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
-                
+
                 @if (session('success'))
                     <div class="mb-4 p-4 bg-green-500 text-white rounded">
                         {{ session('success') }}
@@ -23,10 +23,15 @@
 
                 <div class="flex justify-between items-center mb-4">
                     <h3 class="text-lg font-semibold">Detail Bukti Pembayaran</h3>
-                    @if ($pembayaran)
-                        <a href="{{ route('pembayaran.create', $pembayaran->id) }}" 
+                    @if (empty($pembayaran))
+                        <a href="{{ route('pembayaran.create') }}"
                             class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">
                             Upload Bukti Pembayaran
+                        </a>
+                    @else
+                        <a href="{{ route('berkas.index') }}"
+                        class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">
+                            Lanjut
                         </a>
                     @endif
                 </div>
@@ -55,12 +60,14 @@
                                         @endif
                                     </td>
                                     <td class="border border-gray-300 px-4 py-2">
-                                        <a href="{{ asset('storage/' . $pembayaran->bukti_pembayaran) }}" target="_blank" class="text-blue-600 hover:underline">
+                                        <a href="{{ asset('storage/' . $pembayaran->bukti_pembayaran) }}"
+                                            target="_blank" class="text-blue-600 hover:underline">
                                             Lihat Bukti
                                         </a>
                                     </td>
                                     <td class="border border-gray-300 px-4 py-2">
-                                        <a href="{{ route('pembayaran.edit', $pembayaran->id) }}" class="text-blue-500 hover:underline">
+                                        <a href="{{ route('pembayaran.edit', $pembayaran->id) }}"
+                                            class="text-blue-500 hover:underline">
                                             Edit
                                         </a>
                                     </td>
@@ -75,15 +82,6 @@
                         </tbody>
                     </table>
                 </div>
-
-                @if (!$pembayaran)
-                    <div class="text-center mt-4">
-                        <a href="{{ route('pembayaran.create') }}" 
-                            class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">
-                            Upload Bukti Pembayaran
-                        </a>
-                    </div>
-                @endif
 
             </div>
         </div>
