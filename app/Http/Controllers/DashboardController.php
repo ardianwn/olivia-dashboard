@@ -80,4 +80,5 @@ class DashboardController extends Controller
 
         return redirect()->route('tim.index')->with('success', 'Profil berhasil diperbarui.');
     }
+    
 }
