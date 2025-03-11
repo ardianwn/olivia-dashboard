@@ -9,8 +9,8 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-
-                    <form method="post" action="{{ route('pass.update') }}" class="mt-6 space-y-6">
+                    <form method="post" action="{{ route('pass.update') }}" enctype="multipart/form-data"
+                        class="mt-6 space-y-6">
                         @csrf
                         @method('put')
                         <div>
@@ -23,7 +23,7 @@
                         <div class="mb-4">
                             <x-input-label for="nim" value="NIM" />
                             <x-text-input id="nim" class="block mt-1 w-full" type="text" name="nim"
-                                value="{{ old('nim') }}" required autofocus />
+                                value="{{ old('nim', Auth::user()->nim) }}" required autofocus />
                             <x-input-error :messages="$errors->get('nim')" class="mt-2" />
                         </div>
                         <div>
@@ -35,7 +35,7 @@
                         <div class="mb-4">
                             <x-input-label for="no_wa" value="Nomor WhatsApp" />
                             <x-text-input id="no_wa" class="block mt-1 w-full" type="text" name="no_wa"
-                                value="{{ old('no_wa') }}" required />
+                                value="{{ old('no_wa', Auth::user()->no_wa) }}" required />
                             <x-input-error :messages="$errors->get('no_wa')" class="mt-2" />
                         </div>
                         <div>
@@ -53,26 +53,32 @@
                         </div>
                         <!-- Scan KTM -->
                         <div class="mb-4">
-                            <x-input-label for="scan_ktm" value="Scan KTM" />
-                            <x-text-input id="scan_ktm" class="block mt-1 w-full" type="file" name="scan_ktm"
-                                required />
-                            <x-input-error :messages="$errors->get('scan_ktm')" class="mt-2" />
+                            <x-input-label for="ktm" value="Scan KTM" />
+                            <x-text-input id="ktm" class="block mt-1 w-full" type="file" name="ktm" />
+                            <x-input-error :messages="$errors->get('ktm')" class="mt-2" />
+
+                            @if (Auth::user()->ktm)
+                                <p class="mt-2 text-sm text-gray-600">File saat ini: <a
+                                        href="{{ asset('storage/' . Auth::user()->ktm) }}" target="_blank"
+                                        class="text-blue-500 underline">Lihat KTM</a></p>
+                            @endif
                         </div>
 
                         <!-- Foto Anggota -->
                         <div class="mb-4">
                             <x-input-label for="profile" value="Foto Ketua" />
-                            <x-text-input id="profile" class="block mt-1 w-full" type="file" name="profile"
-                                required />
+                            <x-text-input id="profile" class="block mt-1 w-full" type="file" name="profile" />
                             <x-input-error :messages="$errors->get('profile')" class="mt-2" />
-                        </div>
-                        <div class="flex items-center gap-4">
-                            <x-primary-button>{{ __('Save') }}</x-primary-button>
 
-                            @if (session('status') === 'password-updated')
-                                <p x-data="{ show: true }" x-show="show" x-transition x-init="setTimeout(() => show = false, 2000)"
-                                    class="text-sm text-gray-600">{{ __('Saved.') }}</p>
+                            @if (Auth::user()->profile)
+                                <p class="mt-2 text-sm text-gray-600">Foto saat ini:</p>
+                                <img src="{{ asset('storage/' . Auth::user()->profile) }}" alt="Foto Ketua"
+                                    class="w-32 h-32 object-cover rounded-lg">
                             @endif
+                        </div>
+
+                        <div class="flex justify-end">
+                            <x-primary-button>Simpan</x-primary-button>
                         </div>
                     </form>
                 </div>

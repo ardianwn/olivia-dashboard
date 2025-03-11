@@ -28,11 +28,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
 });
 // Middleware `auth` untuk semua route setelah login
+Route::put('/update', [DashboardController::class, 'update'])->name('pass.update');
 Route::middleware(['auth'])->group(function () {
     
     // Dashboard Ketua Tim
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::put('/update', [DashboardController::class, 'update'])->name('pass.update');
 
     // Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

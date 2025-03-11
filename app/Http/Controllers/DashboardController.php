@@ -29,48 +29,55 @@ class DashboardController extends Controller
     }
     public function update(Request $request)
     {
-        $user = User::find(Auth::id());
+       
+    $user = User::find(Auth::id());
 
-        if (!$user) {
-            return back()->with('error', 'User tidak ditemukan.');
+    if (!$user) {
+        return back()->with('error', 'User tidak ditemukan.');
+    }
+
+    // Validasi input
+    $validated = $request->validate([
+        'nim' => ['required', 'string', 'max:20', "unique:users,nim,{$user->id}"],
+        'no_wa' => ['required', 'string', 'max:15'],
+        'password' => ['nullable', 'confirmed', Password::defaults()],
+        'ktm' => ['nullable', 'file', 'mimes:jpg,jpeg,png,gif,bmp,svg,webp,ico,tiff,tif,avif,pdf', 'max:2048'],
+        'profile' => ['nullable', 'file', 'mimes:jpg,jpeg,png,gif,bmp,svg,webp,ico,tiff,tif,avif', 'max:2048'],
+    ]);
+
+    // Inisialisasi data yang akan diperbarui
+    $data = [
+        'nim' => $validated['nim'],
+        'no_wa' => $validated['no_wa'],
+    ];
+
+    // Jika ada file Scan KTM di-upload, simpan file baru dan hapus yang lama
+    if ($request->hasFile('ktm')) {
+        if ($user->ktm) {
+            Storage::disk('public')->delete($user->ktm);
         }
-    
-        // Validasi input
-        $validated = $request->validate([
-            'nim' => ['required', 'string', 'max:20', "unique:users,nim,{$user->id}"],
-            'no_wa' => ['required', 'string', 'max:15'],
-            'password' => ['nullable', 'confirmed', Password::defaults()],
-            'ktm' => ['nullable', 'file', 'mimes:jpg,png,pdf', 'max:2048'],
-            'profile' => ['nullable', 'file', 'mimes:jpg,png', 'max:2048'],
-        ]);
-    
-        // Jika ada file Scan KTM di-upload, simpan file baru
-        if ($request->hasFile('ktm')) {
-            if ($user->ktm) {
-                Storage::disk('public')->delete($user->ktm);
-            }
-            $validated['ktm'] = $request->file('ktm')->store('ktm', 'public');
+        $data['ktm'] = $request->file('ktm')->store('ktm', 'public');
+    }
+
+    // Jika ada file Foto Anggota di-upload, simpan file baru dan hapus yang lama
+    if ($request->hasFile('profile')) {
+        if ($user->profile) {
+            Storage::disk('public')->delete($user->profile);
         }
-    
-        // Jika ada file Foto Anggota di-upload, simpan file baru
-        if ($request->hasFile('profile')) {
-            if ($user->profile) {
-                Storage::disk('public')->delete($user->profile);
-            }
-            $validated['profile'] = $request->file('profile')->store('profile', 'public');
-        }
-    
-        // Jika password diisi, update password
-        if ($request->filled('password')) {
-            $validated['password'] = Hash::make($request->password);
-        } else {
-            unset($validated['password']); // Jangan update password jika kosong
-        }
-    
-        // Update user
-        $user->fill($validated);
-        $user->save();
-    
-        return redirect()->route('dashboard')->with('success', 'Profil berhasil diperbarui.');
+        $data['profile'] = $request->file('profile')->store('profile', 'public');
+    }
+
+    // Jika password diisi, update password
+    if ($request->filled('password')) {
+        $data['password'] = Hash::make($request->password);
+    }
+
+    // Debugging untuk melihat apakah gambar tersimpan dengan benar
+    // dd($data);
+
+    // Update user
+    User::where('id', Auth::id())->update($data);
+
+        return redirect()->route('tim.index')->with('success', 'Profil berhasil diperbarui.');
     }
 }
