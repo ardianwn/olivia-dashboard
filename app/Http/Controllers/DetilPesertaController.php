@@ -43,6 +43,7 @@ class DetilPesertaController extends Controller
             'no_wa' => 'required|string|max:15',
             'foto_anggota' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
         ]);
+        
 
         // Cek apakah user memiliki tim
         $tim = TimLomba::where('id_ketua', Auth::id())->first();
