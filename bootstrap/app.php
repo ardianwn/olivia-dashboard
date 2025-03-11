@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Middleware\Verify2FAMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -13,7 +12,13 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
-            'admin' => \App\Http\Middleware\AdminMiddleware::class,
+
+                // Middleware bawaan Laravel
+                'auth' => \App\Http\Middleware\Authenticate::class,
+                
+                // Middleware Role (pastikan ada)
+                'role' => \App\Http\Middleware\RoleMiddleware::class,
+            
         ]);
     })    
     ->withExceptions(function (Exceptions $exceptions) {

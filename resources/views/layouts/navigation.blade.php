@@ -7,7 +7,7 @@
                 <div class="hidden space-x-8 sm:-my-px sm:flex">
 
                     @if(Auth::user()->role === 'ketua_tim')
-                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                        <x-nav-link :href="route('ketua.dashboard')" :active="request()->routeIs('ketua.dashboard')">
                             {{ __('Dashboard') }}
                         </x-nav-link>
                         <x-nav-link :href="route('tim.index')" :active="request()->routeIs('tim.index')">

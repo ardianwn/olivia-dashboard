@@ -25,7 +25,7 @@ class DashboardController extends Controller
         $anggota = $tim ? DetilPeserta::where('id_tim', $tim->id)->get() : collect([]);
         $berkas = $tim ? BerkasLomba::where('id_tim', $tim->id)->get() : collect([]);
 
-        return view('dashboard', compact('tim', 'anggota', 'berkas'));
+        return view('ketua.dashboard', compact('tim', 'anggota', 'berkas'));
     }
     public function update(Request $request)
     {

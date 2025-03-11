@@ -3,8 +3,8 @@
         <h2 class="font-semibold text-xl text-gray-800">Preview & Final Submit</h2>
     </x-slot>
 
-    <div class="py-8 max-w-6xl mx-auto sm:px-6 lg:px-8">
-        <div class="bg-white shadow-xl sm:rounded-lg p-6">
+    <div class="py-8 max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
 
             @if (session('success'))
                 <div class="mb-4 p-4 bg-green-500 text-white rounded">
@@ -17,10 +17,18 @@
                     {{ session('error') }}
                 </div>
             @endif
+            <h3 class="text-lg font-semibold mb-2">Data Tim: {{ $tim->nama_tim }}</h3>
+            <td class="text-lg font-semibold mb-4">Asal Kampus: {{ $tim->nama_kampus }}</td> <br>
+            <td class="text-lg font-semibold mb-4">Cabang Lomba: {{ $tim->cabang_lomba }}</td> <br>
+            <td class="border border-gray-300 px-4 py-2">Foto Tim: 
+                @if ($tim->foto_tim)
+                    <img src="{{ asset('storage/' . $tim->foto_tim) }}" alt="Foto Tim" class="w-16 h-16 object-cover rounded">
+                @else
+                    <span class="text-gray-500">Tidak ada foto</span>
+                @endif
+            </td>
 
-            <h3 class="text-lg font-semibold mb-4">Data Tim: {{ $tim->nama_tim }}</h3>
-
-            <div class="mb-6">
+            <div class="mt-6 mb-6">
                 <h4 class="text-md font-semibold">Anggota Tim</h4>
                 <table class="w-full border-collapse border border-gray-300 mt-2">
                     <thead class="bg-gray-200">
