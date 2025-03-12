@@ -20,7 +20,6 @@
                                     </div>
                                     <h3 class="font-semibold text-lg">{{ $key == 0 ? 'Leader' : 'Member ' . $key }}</h3>
                                     <p class="text-gray-600">{{ $member->name }}</p>
-                                    <p class="text-sm text-gray-500">{{ $member->program_study }}</p>
 
                                     <div class="mt-4 space-x-2">
                                         <!-- Actions -->
