@@ -7,100 +7,98 @@
 
     <div class="py-8">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
-                
-                @if (session('success'))
-                    <div class="mb-4 p-4 bg-green-500 text-white rounded">
-                        {{ session('success') }}
+            <div class="bg-white shadow-xl sm:rounded-lg p-6">
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                    @php
+                    $no = 1;
+                    @endphp
+                    @foreach ($anggota as $index => $member)
+                    <div class="bg-gray-100 shadow-md rounded-lg p-4 text-center">
+                        <!-- Foto Anggota -->
+                        @if ($member->foto_anggota)
+                        <img src="{{ asset('storage/' . $member->foto_anggota) }}" alt="Foto Anggota" class="w-24 h-24 rounded-full mx-auto border-4 border-red-500">
+                        @else
+                        <img src="{{ asset('images/default-profile.png') }}" alt="Default Foto" class="w-24 h-24 rounded-full mx-auto border-4 border-red-500">
+                        @endif
+
+                        <!-- Role Anggota -->
+                        <h3 class="mt-3 text-lg font-semibold text-gray-800">
+                            @if ($index == 0)
+                            Leader
+                            @else
+                            Member {{ $no++ }}
+                            @endif
+                        </h3>
+
+                        <!-- Nama Anggota -->
+                        <p class="text-gray-600">{{ $member->nama_lengkap }}</p>
+                        <p class="text-sm text-gray-500">{{ $member->tim->nama_tim ?? 'Tidak ada tim' }}</p>
+
+                        <!-- Tombol Aksi -->
+                        <div class="mt-4 flex justify-center gap-2">
+                            @if ($member->scan_ktm)
+                            <a href="{{ asset('storage/' . $member->scan_ktm) }}" target="_blank"
+                                class="bg-black text-white px-3 py-1 rounded-md hover:bg-gray-700">
+                                Lihat KTM
+                            </a>
+                            @endif
+
+                            <a href="{{ route('anggota.edit', $member->id) }}"
+                                class="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-700">
+                                Edit
+                            </a>
+
+                            <form action="{{ route('anggota.destroy', $member->id) }}" method="POST" class="inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit"
+                                    class="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-700"
+                                    onclick="return confirm('Yakin ingin menghapus anggota ini?')">
+                                    Delete
+                                </button>
+                            </form>
+                        </div>
                     </div>
-                @endif
+                    @endforeach
 
-                @if (session('error'))
-                    <div class="mb-4 p-4 bg-red-500 text-white rounded">
-                        {{ session('error') }}
-                    </div>
-                @endif
+                    <!-- Kotak Kosong untuk Tambah Anggota -->
+                    @if (count($anggota) < 3)
+                        <div class="bg-gray-100 shadow-md rounded-lg p-4 text-center">
+                        <!-- Foto Anggota -->
+                        <img src="{{ asset('storage/anggota/image.png' ) }}" alt="Foto Anggota" class="w-24 h-24 rounded-full mx-auto border-4 border-red-500">
 
-                <div class="flex justify-between mb-4">
-                    <h3 class="text-lg font-semibold">Anggota Tim: {{ $tim->nama_tim ?? 'Tidak Diketahui' }}</h3>
-                    @if ($data <= 2)
-                    <a href="{{ route('anggota.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">
-                        + Tambah Anggota
-                    </a>
-                    @else
-                    <a href="{{ route('pembayaran.index') }}" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">
-                        Lanjut
-                    </a>
-                    @endif
+
+                        <!-- Role Anggota -->
+                        <h3 class="mt-3 text-lg font-semibold text-gray-800">
+                            @if ($index == 0)
+                            Leader
+                            @else
+                            Member {{ $no++ }}
+                            @endif
+                        </h3>
+
+                        <!-- Nama Anggota -->
+                        <p class="text-gray-600">Tambah Anggota</p>
+
+
+                        <!-- Tombol Aksi -->
+                        <div class="mt-4 flex justify-center gap-2">
+                            <a href="{{ route('anggota.create') }}" class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-700">
+                                + Tambah Anggota
+                            </a>
+                        </div>
                 </div>
-
-                <div class="overflow-x-auto">
-                    <table class="w-full table-auto border-collapse border border-gray-300">
-                        <thead>
-                            <tr class="bg-gray-200">
-                                <th class="border border-gray-300 px-4 py-2">No</th>
-                                <th class="border border-gray-300 px-4 py-2">NIM</th>
-                                <th class="border border-gray-300 px-4 py-2">Nama Lengkap</th>
-                                <th class="border border-gray-300 px-4 py-2">No. WA</th>
-                                <th class="border border-gray-300 px-4 py-2">Scan KTM</th>
-                                <th class="border border-gray-300 px-4 py-2">Foto</th>
-                                <th class="border border-gray-300 px-4 py-2">Status</th>
-                                <th class="border border-gray-300 px-4 py-2">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse ($anggota as $index => $member)
-                                <tr class="text-center">
-                                    <td class="border border-gray-300 px-4 py-2">{{ $index + 1 }}</td>
-                                    <td class="border border-gray-300 px-4 py-2">{{ $member->nim }}</td>
-                                    <td class="border border-gray-300 px-4 py-2">{{ $member->nama_lengkap }}</td>
-                                    <td class="border border-gray-300 px-4 py-2">{{ $member->no_wa }}</td>
-                                    <td class="border border-gray-300 px-4 py-2">
-                                        @if ($member->scan_ktm)
-                                            <a href="{{ asset('storage/' . $member->scan_ktm) }}" target="_blank" class="text-blue-600 hover:underline">
-                                                Lihat KTM
-                                            </a>
-                                        @else
-                                            <span class="text-gray-500">Tidak ada</span>
-                                        @endif
-                                    </td>
-                                    <td class="border border-gray-300 px-4 py-2">
-                                        @if ($member->foto_anggota)
-                                            <img src="{{ asset('storage/' . $member->foto_anggota) }}" alt="Foto" class="w-12 h-12 rounded-full mx-auto">
-                                        @else
-                                            <span class="text-gray-500">Tidak ada</span>
-                                        @endif
-                                    </td>
-                                    <td class="border border-gray-300 px-4 py-2">
-                                        @if ($member->status_verifikasi == 'pending')
-                                            <span class="px-2 py-1 bg-yellow-500 text-white rounded">Pending</span>
-                                        @elseif ($member->status_verifikasi == 'verified')
-                                            <span class="px-2 py-1 bg-green-500 text-white rounded">Verified</span>
-                                        @else
-                                            <span class="px-2 py-1 bg-red-500 text-white rounded">Rejected</span>
-                                        @endif
-                                    </td>
-                                    <td class="border border-gray-300 px-4 py-2">
-                                        <a href="{{ route('anggota.edit', $member->id) }}" class="text-blue-500 hover:underline">Edit</a> | 
-                                        <form action="{{ route('anggota.destroy', $member->id) }}" method="POST" class="inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="text-red-500 hover:underline" onclick="return confirm('Yakin ingin menghapus anggota ini?')">
-                                                Hapus
-                                            </button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="8" class="text-center p-4 text-gray-500">Belum ada anggota dalam tim.</td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
-
+                <!-- <div class="bg-gray-100 shadow-md rounded-lg p-6 flex flex-col justify-center items-center text-center border-2 border-dashed border-gray-300">
+                            <p class="text-gray-600 mb-2">Tambah Anggota</p>
+                            <a href="{{ route('anggota.create') }}" class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-700">
+                                + Tambah Anggota
+                            </a>
+                        </div> -->
+                @endif
             </div>
+
         </div>
+    </div>
     </div>
 </x-app-layout>

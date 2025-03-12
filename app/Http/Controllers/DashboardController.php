@@ -20,7 +20,7 @@ class DashboardController extends Controller
     {
         // Ambil data tim yang dimiliki oleh user yang login
         $tim = TimLomba::where('id_ketua', Auth::id())->first();
-        
+        $anggota = $tim ? DetilPeserta::where('id_tim', $tim->id)->get() : collect([]);
         // Jika tim sudah terdaftar, ambil juga data anggota dan berkasnya
         $anggota = $tim ? DetilPeserta::where('id_tim', $tim->id)->get() : collect([]);
         $berkas = $tim ? BerkasLomba::where('id_tim', $tim->id)->get() : collect([]);

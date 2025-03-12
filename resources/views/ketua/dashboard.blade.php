@@ -28,36 +28,79 @@
                                 </div>
                             @endforeach
                         </div>
-                    @else
-                        <!-- Form for Editing Member Data -->
-                        <form method="post" action="{{ route('pass.update') }}" enctype="multipart/form-data" class="mt-6 space-y-6">
-                            @csrf
-                            @method('put')
-                            <div>
-                                <x-input-label for="nama_lengkap" value="Nama Lengkap" />
-                                <x-text-input type="text" class="mt-1 block w-full" placeholder="{{ Auth::user()->name }}" readonly />
-                            </div>
-                            <br>
-                            <!-- NIM -->
-                            <div class="mb-4">
-                                <x-input-label for="nim" value="NIM" />
-                                <x-text-input id="nim" class="block mt-1 w-full" type="text" name="nim" value="{{ old('nim', Auth::user()->nim) }}" required autofocus />
-                                <x-input-error :messages="$errors->get('nim')" class="mt-2" />
-                            </div>
-                            <div>
-                                <x-input-label for="email" :value="__('Email')" />
-                                <x-text-input type="text" class="mt-1 block w-full" placeholder="{{ Auth::user()->email }}" readonly />
-                            </div>
-                            <!-- No WA -->
-                            <div class="mb-4">
-                                <x-input-label for="no_wa" value="Nomor WhatsApp" />
-                                <x-text-input id="no_wa" class="block mt-1 w-full" type="text" name="no_wa" value="{{ old('no_wa', Auth::user()->no_wa) }}" required />
-                                <x-input-error :messages="$errors->get('no_wa')" class="mt-2" />
-                            </div>
-                            <div class="flex justify-end">
-                                <x-primary-button>Simpan</x-primary-button>
-                            </div>
-                        </form>
+                    @else     
+                    <form method="post" action="{{ route('pass.update') }}" enctype="multipart/form-data"
+                        class="mt-6 space-y-6">
+                        @csrf
+                        @method('put')
+                        <div>
+                            <x-input-label for="nama_lengkap" value="Nama Lengkap" />
+                            <x-text-input type="text" class="mt-1 block w-full "
+                                placeholder="{{ Auth::user()->name }}" readonly />
+                        </div>
+                        <br>
+                        <!-- NIM -->
+                        <div class="mb-4">
+                            <x-input-label for="nim" value="NIM" />
+                            <x-text-input id="nim" class="block mt-1 w-full" type="text" name="nim"
+                                value="{{ old('nim', Auth::user()->nim) }}" required autofocus />
+                            <x-input-error :messages="$errors->get('nim')" class="mt-2" />
+                        </div>
+                        <div>
+                            <x-input-label for="email" :value="__('Email')" />
+                            <x-text-input type="text" class="mt-1 block w-full"
+                                placeholder="{{ Auth::user()->email }}" readonly />
+                        </div>
+                        <!-- No WA -->
+                        <div class="mb-4">
+                            <x-input-label for="no_wa" value="Nomor WhatsApp" />
+                            <x-text-input id="no_wa" class="block mt-1 w-full" type="text" name="no_wa"
+                                value="{{ old('no_wa', Auth::user()->no_wa) }}" required />
+                            <x-input-error :messages="$errors->get('no_wa')" class="mt-2" />
+                        </div>
+                        <div>
+                            <x-input-label for="update_password_password" :value="__('New Password')" />
+                            <x-text-input id="update_password_password" name="password" type="password"
+                                class="mt-1 block w-full" autocomplete="new-password" />
+                            <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2" />
+                        </div>
+
+                        <div>
+                            <x-input-label for="update_password_password_confirmation" :value="__('Confirm Password')" />
+                            <x-text-input id="update_password_password_confirmation" name="password_confirmation"
+                                type="password" class="mt-1 block w-full" autocomplete="new-password" />
+                            <x-input-error :messages="$errors->updatePassword->get('password_confirmation')" class="mt-2" />
+                        </div>
+                        <!-- Scan KTM -->
+                        <div class="mb-4">
+                            <x-input-label for="ktm" value="Scan KTM" />
+                            <x-text-input id="ktm" class="block mt-1 w-full" type="file" name="ktm" />
+                            <x-input-error :messages="$errors->get('ktm')" class="mt-2" />
+
+                            @if (Auth::user()->ktm)
+                                <p class="mt-2 text-sm text-gray-600">File saat ini: <a
+                                        href="{{ asset('storage/' . Auth::user()->ktm) }}" target="_blank"
+                                        class="text-blue-500 underline">Lihat KTM</a></p>
+                            @endif
+                        </div>
+
+                        <!-- Foto Anggota -->
+                        <div class="mb-4">
+                            <x-input-label for="profile" value="Foto Ketua" />
+                            <x-text-input id="profile" class="block mt-1 w-full" type="file" name="profile" />
+                            <x-input-error :messages="$errors->get('profile')" class="mt-2" />
+
+                            @if (Auth::user()->profile)
+                                <p class="mt-2 text-sm text-gray-600">Foto saat ini:</p>
+                                <img src="{{ asset('storage/' . Auth::user()->profile) }}" alt="Foto Ketua"
+                                    class="w-32 h-32 object-cover rounded-lg">
+                            @endif
+                        </div>
+
+                        <div class="flex justify-end">
+                            <x-primary-button>Simpan</x-primary-button>
+                        </div>
+                    </form>
                     @endif
                 </div>
             </div>
