@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\TimLomba;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use App\Models\DetilPeserta;
 
 class TimLombaController extends Controller
 {
@@ -54,13 +55,17 @@ class TimLombaController extends Controller
             $fotoPath = $request->file('foto_tim')->store('tim_foto', 'public');
         }
     
-        TimLomba::create([
+        $tim = TimLomba::create([
             'id_ketua' => Auth::id(), // Simpan ID ketua tim
             'nama_tim' => $request->nama_tim,
             'nama_kampus' => $request->nama_kampus,
             'cabang_lomba' => $request->cabang_lomba,
             'foto_tim' => $fotoPath
         ]);
+        $data = [
+            'id_tim' => $tim['id'],
+        ];
+       DetilPeserta::where('nim', Auth::nim())->update($data);
     
         return redirect()->route('tim.index')->with('success', 'Tim berhasil dibuat.');
     }

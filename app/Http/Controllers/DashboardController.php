@@ -29,56 +29,66 @@ class DashboardController extends Controller
     }
     public function update(Request $request)
     {
-       
-    $user = User::find(Auth::id());
 
-    if (!$user) {
-        return back()->with('error', 'User tidak ditemukan.');
-    }
+        $user = User::find(Auth::id());
 
-    // Validasi input
-    $validated = $request->validate([
-        'nim' => ['required', 'string', 'max:20', "unique:users,nim,{$user->id}"],
-        'no_wa' => ['required', 'string', 'max:15'],
-        'password' => ['nullable', 'confirmed', Password::defaults()],
-        'ktm' => ['nullable', 'file', 'mimes:jpg,jpeg,png,gif,bmp,svg,webp,ico,tiff,tif,avif,pdf', 'max:2048'],
-        'profile' => ['nullable', 'file', 'mimes:jpg,jpeg,png,gif,bmp,svg,webp,ico,tiff,tif,avif', 'max:2048'],
-    ]);
-
-    // Inisialisasi data yang akan diperbarui
-    $data = [
-        'nim' => $validated['nim'],
-        'no_wa' => $validated['no_wa'],
-    ];
-
-    // Jika ada file Scan KTM di-upload, simpan file baru dan hapus yang lama
-    if ($request->hasFile('ktm')) {
-        if ($user->ktm) {
-            Storage::disk('public')->delete($user->ktm);
+        if (!$user) {
+            return back()->with('error', 'User tidak ditemukan.');
         }
-        $data['ktm'] = $request->file('ktm')->store('ktm', 'public');
-    }
 
-    // Jika ada file Foto Anggota di-upload, simpan file baru dan hapus yang lama
-    if ($request->hasFile('profile')) {
-        if ($user->profile) {
-            Storage::disk('public')->delete($user->profile);
+        // Validasi input
+        $validated = $request->validate([
+            'nim' => ['required', 'string', 'max:20', "unique:users,nim,{$user->id}"],
+            'no_wa' => ['required', 'string', 'max:15'],
+            'password' => ['nullable', 'confirmed', Password::defaults()],
+            'ktm' => ['nullable', 'file', 'mimes:jpg,jpeg,png,gif,bmp,svg,webp,ico,tiff,tif,avif,pdf', 'max:2048'],
+            'profile' => ['nullable', 'file', 'mimes:jpg,jpeg,png,gif,bmp,svg,webp,ico,tiff,tif,avif', 'max:2048'],
+        ]);
+
+        // Inisialisasi data yang akan diperbarui
+        $data = [
+            'nim' => $validated['nim'],
+            'no_wa' => $validated['no_wa'],
+            'status' => 'active'
+        ];
+
+
+        // Jika ada file Scan KTM di-upload, simpan file baru dan hapus yang lama
+        if ($request->hasFile('ktm')) {
+            if ($user->ktm) {
+                Storage::disk('public')->delete($user->ktm);
+            }
+            $data['ktm'] = $request->file('ktm')->store('ktm', 'public');
+            $tim['scan_ktm'] = $request->file('ktm');
         }
-        $data['profile'] = $request->file('profile')->store('profile', 'public');
-    }
 
-    // Jika password diisi, update password
-    if ($request->filled('password')) {
-        $data['password'] = Hash::make($request->password);
-    }
+        // Jika ada file Foto Anggota di-upload, simpan file baru dan hapus yang lama
+        if ($request->hasFile('profile')) {
+            if ($user->profile) {
+                Storage::disk('public')->delete($user->profile);
+            }
+            $data['profile'] = $request->file('profile')->store('profile', 'public');
+            $tim['foto_anggota'] = $request->file('foto_anggota')->store('anggota', 'public');
+        }
 
-    // Debugging untuk melihat apakah gambar tersimpan dengan benar
-    // dd($data);
+        // Jika password diisi, update password
+        if ($request->filled('password')) {
+            $data['password'] = Hash::make($request->password);
+        }
 
-    // Update user
-    User::where('id', Auth::id())->update($data);
+        // Debugging untuk melihat apakah gambar tersimpan dengan benar
+        // dd($data);
+        $tim = [
+            'nim' => $request->nim,
+            'nama_lengkap' => Auth::name(),
+            'no_wa' => Auth::no_wa(),
+            'status_verifikasi' => 'pending',
+        ];
 
+        // Update user
+        User::where('id', Auth::id())->update($data);
+        // create Anggota
+        DetilPeserta::create($tim);
         return redirect()->route('tim.index')->with('success', 'Profil berhasil diperbarui.');
     }
-    
 }
