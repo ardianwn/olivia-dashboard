@@ -24,8 +24,6 @@
                                     <div class="mt-4 space-x-2">
                                         <!-- Actions -->
                                         <a href="{{ route('show.ktm', $member->id) }}" class="inline-block bg-black text-white px-4 py-2 rounded-md">Lihat KTM</a>
-                                        <a href="{{ route('member.edit', $member->id) }}" class="inline-block bg-blue-500 text-white px-4 py-2 rounded-md">Edit</a>
-                                        <a href="{{ route('member.delete', $member->id) }}" class="inline-block bg-red-500 text-white px-4 py-2 rounded-md">Delete</a>
                                     </div>
                                 </div>
                             @endforeach
