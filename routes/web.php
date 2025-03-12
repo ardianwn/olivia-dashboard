@@ -82,6 +82,8 @@ Route::middleware(['auth'])->group(function () {
         
         Route::get('/ketua', [DashboardController::class, 'index'])->name('ketua.dashboard');
         Route::put('/update', [DashboardController::class, 'update'])->name('pass.update');
+        Route::get('/member/{id}/ktm', [DetilPesertaController::class, 'showKtm'])->name('show.ktm');
+
 
         // 👤 Profile
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

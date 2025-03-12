@@ -151,4 +151,16 @@ class DetilPesertaController extends Controller
 
         return redirect()->route('anggota.index')->with('success', 'Anggota berhasil dihapus!');
     }
+
+    public function showKtm($id)
+    {
+        $anggota = DetilPeserta::findOrFail($id);
+        
+        if (!$anggota->ktm) {
+            return redirect()->back()->with('error', 'KTM tidak ditemukan.');
+        }
+
+        return response()->file(storage_path("app/public/{$anggota->ktm}"));
+    }
+
 }
