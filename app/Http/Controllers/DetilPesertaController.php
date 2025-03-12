@@ -13,10 +13,10 @@ class DetilPesertaController extends Controller
     public function index()
     {
         $tim = TimLomba::where('id_ketua', Auth::id())->first();
-        $data = DetilPeserta::where('id_tim', $tim->id)->count();
         if (!$tim) {
             return redirect()->route('tim.index')->with('error', 'Tim tidak ditemukan.');
         }
+        $data = DetilPeserta::where('id_tim', $tim->id)->count();
 
         $anggota = DetilPeserta::where('id_tim', $tim->id)->get();
         return view('anggota.index', compact('anggota', 'tim', 'data'));
