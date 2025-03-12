@@ -67,12 +67,14 @@ Route::middleware(['auth'])->group(function () {
 
     // Pengelolaan Kategori Lomba
     Route::get('/admin/kategori', [CompetitionCategoryController::class, 'index'])->name('competition-category.index');
+    Route::get('/admin/kategori/create', [CompetitionCategoryController::class, 'create'])->name('competition-category.create');
+    Route::post('/admin/kategori', [CompetitionCategoryController::class, 'store'])->name('competition-category.store');
     Route::get('/admin/kategori/{id}/edit', [CompetitionCategoryController::class, 'edit'])->name('competition-category.edit');
     Route::put('/admin/kategori/{id}', [CompetitionCategoryController::class, 'update'])->name('competition-category.update');
     Route::delete('/admin/kategori/{id}', [CompetitionCategoryController::class, 'destroy'])->name('competition-category.destroy');
 
     // Kirim Notifikasi
-    Route::get('/admin/notifikasi', [NotificationController::class, 'sendNotification'])->name('notification.sendNotification');
+    Route::get('/admin/notifikasi', [NotificationController::class, 'sendNotification'])->name('notification.send');
 });
 
     // ✅ Dashboard Ketua Tim & Fitur Pendaftaran Lomba

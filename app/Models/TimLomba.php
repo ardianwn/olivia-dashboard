@@ -13,6 +13,7 @@ class TimLomba extends Model
     protected $fillable = [
         'nama_tim',
         'nama_kampus',
+        'kategori_id',
         'cabang_lomba',
         'foto_tim',
         'status_verifikasi',
@@ -33,5 +34,10 @@ class TimLomba extends Model
     public function pembayaran()
     {
         return $this->hasOne(PembayaranLomba::class, 'id_tim');
+    }
+
+    public function kategori()
+    {
+        return $this->belongsTo(KategoriLomba::class, 'kategori_id');
     }
 }

@@ -14,12 +14,27 @@ class CompetitionCategoryController extends Controller
         return view('competition-category.index', compact('kategori'));
     }
 
-    // Menambahkan kategori lomba baru
+    public function create()
+    {
+        return view('competition-category.create');
+    }
+
+    // Menyimpan kategori lomba baru
     public function store(Request $request)
     {
-        KategoriLomba::create($request->all());
-        return redirect()->route('competition-category.index')->with('success', 'Kategori lomba berhasil ditambahkan');
+        $request->validate([
+            'nama_kategori' => 'required|string|max:255',
+            'jumlah_anggota_maksimal' => 'required|integer|min:1',
+        ]);
+    
+        KategoriLomba::create([
+            'nama_kategori' => $request->nama_kategori,
+            'jumlah_anggota_maksimal' => $request->jumlah_anggota_maksimal,
+        ]);
+    
+        return redirect()->route('competition-category.index')->with('success', 'Kategori berhasil ditambahkan');
     }
+    
 
     // Mengedit kategori lomba
     public function edit($id)
@@ -31,10 +46,24 @@ class CompetitionCategoryController extends Controller
     // Menyimpan perubahan kategori lomba
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'nama_kategori' => 'required|string|max:255',
+            'jumlah_anggota_maksimal' => 'required|integer|min:1',
+        ]);
+    
+        // Cari data kategori berdasarkan ID
         $kategori = KategoriLomba::findOrFail($id);
-        $kategori->update($request->all());
+    
+        // Update data kategori
+        $kategori->update([
+            'nama_kategori' => $request->nama_kategori,
+            'jumlah_anggota_maksimal' => $request->jumlah_anggota_maksimal,
+        ]);
+    
         return redirect()->route('competition-category.index')->with('success', 'Kategori lomba berhasil diperbarui');
     }
+    
+    
 
     // Menghapus kategori lomba
     public function destroy($id)

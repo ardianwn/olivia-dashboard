@@ -7,18 +7,20 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\NotificationMail;
 
-
 class NotificationController extends Controller
 {
-    // Mengirim notifikasi atau pengumuman
     public function sendNotification(Request $request)
     {
+        $request->validate([
+            'message' => 'required|string|max:1000', // Validasi input
+        ]);
+
         $users = User::where('role', 'ketua_tim')->get();
+
         foreach ($users as $user) {
-            // Mengirim email atau notifikasi
-            // Contoh mengirim email
-            Mail::to($user->email)->send(new NotificationMail($request->message));
+            Mail::to($user->email)->send(new NotificationMail($request->message)); // Kirim string, bukan objek
         }
-        return redirect()->back()->with('success', 'Notifikasi berhasil dikirim');
+
+        return redirect()->back()->with('success', 'Notifikasi berhasil dikirim.');
     }
 }

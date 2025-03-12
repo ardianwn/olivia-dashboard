@@ -59,7 +59,7 @@
                         </x-nav-link>
 
                         <!-- Link untuk Mengirim Notifikasi -->
-                        <x-nav-link :href="route('notification.sendNotification')" :active="request()->routeIs('notification.sendNotification')">
+                        <x-nav-link :href="route('notification.send')" :active="request()->routeIs('notification.send')">
                             {{ __('Kirim Notifikasi') }}
                         </x-nav-link>
                     @endif

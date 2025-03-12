@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white shadow-xl sm:rounded-lg">
                 <div class="p-6">
-                    <form action="{{ route('notification.sendNotification') }}" method="POST">
+                    <form action="{{ route('notification.send') }}" method="POST">
                         @csrf
                         <div class="mb-4">
                             <label for="message" class="block text-sm font-medium text-gray-700">Pesan Notifikasi</label>
