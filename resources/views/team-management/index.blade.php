@@ -8,25 +8,41 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white shadow-xl sm:rounded-lg">
-                <div class="overflow-hidden border-b border-gray-200">
-                    <table class="min-w-full bg-white">
-                        <thead>
-                            <tr>
-                                <th class="py-3 px-6 text-left">Nama Tim</th>
-                                <th class="py-3 px-6 text-left">Ketua Tim</th>
-                                <th class="py-3 px-6 text-left">Status</th>
-                                <th class="py-3 px-6 text-left">Aksi</th>
+                <div class="overflow-hidden border-b border-gray-200 p-6">
+                    <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-sm">
+                        <thead class="bg-gray-100">
+                            <tr class="border-b border-gray-200">
+                                <th class="py-3 px-6 text-left text-gray-600 font-semibold">Nama Tim</th>
+                                <th class="py-3 px-6 text-left text-gray-600 font-semibold">Ketua Tim</th>
+                                <th class="py-3 px-6 text-left text-gray-600 font-semibold">Status</th>
+                                <th class="py-3 px-6 text-left text-gray-600 font-semibold text-center">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($timLomba as $tim)
-                                <tr>
-                                    <td class="py-3 px-6">{{ $tim->nama_tim }}</td>
-                                    <td class="py-3 px-6">{{ $tim->anggota->first()->nama_lengkap }}</td>
-                                    <td class="py-3 px-6">{{ $tim->status_verifikasi }}</td>
+                                <tr class="border-b border-gray-200 hover:bg-gray-50 transition">
+                                    <td class="py-3 px-6 text-gray-800">{{ $tim->nama_tim }}</td>
+                                    <td class="py-3 px-6 text-gray-800">
+                                        {{ $tim->anggota->first()->nama_lengkap ?? 'Tidak Diketahui' }}
+                                    </td>
                                     <td class="py-3 px-6">
-                                        <a href="{{ route('team-management.show', $tim->id) }}" class="text-blue-500">Lihat</a>
-                                        <a href="{{ route('team-management.edit', $tim->id) }}" class="text-yellow-500">Edit</a>
+                                        <span class="px-3 py-1 text-white rounded-lg
+                                            @if($tim->status_verifikasi == 'pending') bg-yellow-500
+                                            @elseif($tim->status_verifikasi == 'approve') bg-green-500
+                                            @else ($tim->status_verifikasi == 'suspend') bg-red-500 @endif">
+                                            {{ ucfirst($tim->status_verifikasi) }}
+                                        </span>
+                                    </td>
+                                    <td class="py-3 px-6 text-gray-800">{{ ucfirst($tim->status_verifikasi) }}</td>
+                                    <td class="py-3 px-6 text-center">
+                                        <a
+                                           class="text-green-500 hover:text-green-600 font-medium mr-4">
+                                            ✅ Verifikasi
+                                        </a>
+                                        <a
+                                           class="text-red-500 hover:text-red-600 font-medium">
+                                            ❌ Tolak
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach

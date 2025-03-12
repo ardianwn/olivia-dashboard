@@ -29,13 +29,20 @@
                                                  class="w-20 h-20 object-cover rounded-lg shadow-md hover:scale-105 transition-transform">
                                         </a>
                                     </td>
-                                    <td class="py-3 px-6 text-gray-800">{{ ucfirst($item->status_verifikasi) }}</td>
+                                    <td class="py-3 px-6">
+                                        <span class="px-3 py-1 text-white rounded-lg
+                                            @if($item->status_verifikasi == 'pending') bg-yellow-500
+                                            @elseif($item->status_verifikasi == 'approve') bg-green-500
+                                            @else ($item->status_verifikasi == 'suspend') bg-red-500 @endif">
+                                            {{ ucfirst($item->status_verifikasi) }}
+                                        </span>
+                                    </td>
                                     <td class="py-3 px-6 text-center">
-                                        <a href="{{ route('payment-management.verify', $item->id) }}" 
+                                        <a
                                            class="text-green-500 hover:text-green-600 font-medium mr-4">
                                             ✅ Verifikasi
                                         </a>
-                                        <a href="{{ route('payment-management.reject', $item->id) }}" 
+                                        <a
                                            class="text-red-500 hover:text-red-600 font-medium">
                                             ❌ Tolak
                                         </a>

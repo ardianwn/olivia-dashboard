@@ -53,9 +53,9 @@
                                     <td class="border border-gray-300 px-4 py-2">
                                         @if ($pembayaran->status_verifikasi == 'pending')
                                             <span class="px-2 py-1 bg-yellow-500 text-white rounded">Pending</span>
-                                        @elseif ($pembayaran->status_verifikasi == 'diterima')
+                                        @elseif ($pembayaran->status_verifikasi == 'approve')
                                             <span class="px-2 py-1 bg-green-500 text-white rounded">Diterima</span>
-                                        @else
+                                        @else ($pembayaran->status_verifikasi == 'suspend')
                                             <span class="px-2 py-1 bg-red-500 text-white rounded">Ditolak</span>
                                         @endif
                                     </td>
