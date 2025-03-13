@@ -10,7 +10,7 @@ class TeamManagementController extends Controller
     // Menampilkan daftar tim yang terdaftar
     public function index()
     {
-        $timLomba = TimLomba::with('anggota')->get();
+        $timLomba = TimLomba::with('ketua')->get();
         return view('team-management.index', compact('timLomba'));
     }
 

@@ -38,6 +38,10 @@ class TimLomba extends Model
 
     public function kategori()
     {
-        return $this->belongsTo(KategoriLomba::class, 'kategori_id');
+        return $this->belongsTo(KategoriLomba::class, 'kategori_id','id');
+    }
+    public function ketua()
+    {
+        return $this->belongsTo(User::class, 'id_ketua', 'id');
     }
 }

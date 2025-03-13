@@ -33,20 +33,15 @@
                         <label class="block font-semibold">Nama Kampus</label>
                         <input type="text" name="nama_kampus" value="{{ $tim->nama_kampus }}" required class="w-full border p-2 rounded focus:ring focus:ring-blue-200">
                     </div>
-
                     <div class="mb-4">
                         <label class="block font-semibold">Cabang Lomba</label>
-                        <input type="text" name="cabang_lomba" value="{{ $tim->cabang_lomba }}" required class="w-full border p-2 rounded focus:ring focus:ring-blue-200">
-                    </div>
-
-                    <div class="mb-4">
-                        <label class="block font-semibold">Foto Tim</label>
-                        <input type="file" name="foto_tim" class="w-full border p-2 rounded focus:ring focus:ring-blue-200">
-                        @if ($tim->foto_tim)
-                            <div class="mt-2">
-                                <img src="{{ asset('storage/' . $tim->foto_tim) }}" alt="Foto Tim" class="w-24 h-24 object-cover rounded">
-                            </div>
-                        @endif
+                        <select name="cabang_lomba" required
+                            class="w-full border p-2 rounded focus:ring focus:ring-blue-200">
+                            <option value="" disabled selected>Pilih Cabang Lomba</option>
+                            @foreach ($kategoriLomba as $kategori)
+                                <option value="{{ $kategori->id }}">{{ $kategori->nama_kategori }}</option>
+                            @endforeach
+                        </select>
                     </div>
 
                     <button type="submit" class="w-full bg-yellow-500 text-white px-4 py-2 rounded shadow hover:bg-yellow-700 transition">

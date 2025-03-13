@@ -23,7 +23,7 @@
                                 <tr class="border-b border-gray-200 hover:bg-gray-50 transition">
                                     <td class="py-3 px-6 text-gray-800">{{ $tim->nama_tim }}</td>
                                     <td class="py-3 px-6 text-gray-800">
-                                        {{ $tim->anggota->first()->nama_lengkap ?? 'Tidak Diketahui' }}
+                                        {{ $tim->ketua->name ?? 'Tidak Diketahui' }}
                                     </td>
                                     <td class="py-3 px-6">
                                         <span class="px-3 py-1 text-white rounded-lg
@@ -33,16 +33,18 @@
                                             {{ ucfirst($tim->status_verifikasi) }}
                                         </span>
                                     </td>
-                                    <td class="py-3 px-6 text-gray-800">{{ ucfirst($tim->status_verifikasi) }}</td>
+                                    
                                     <td class="py-3 px-6 text-center">
-                                        <a
-                                           class="text-green-500 hover:text-green-600 font-medium mr-4">
-                                            ✅ Verifikasi
-                                        </a>
-                                        <a
-                                           class="text-red-500 hover:text-red-600 font-medium">
-                                            ❌ Tolak
-                                        </a>
+                                        <form action="" method="post">
+                                            <button
+                                               class="text-green-500 hover:text-green-600 font-medium mr-4">
+                                                ✅ Verifikasi
+                                            </button>
+                                            <button
+                                               class="text-red-500 hover:text-red-600 font-medium">
+                                                ❌ Tolak
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach

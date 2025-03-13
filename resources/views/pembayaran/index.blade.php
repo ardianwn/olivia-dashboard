@@ -10,13 +10,13 @@
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
 
                 @if (session('success'))
-                    <div class="mb-4 p-4 bg-green-500 text-white rounded">
+                    <div id="success-message" class="mb-4 p-4 bg-green-500 text-white rounded">
                         {{ session('success') }}
                     </div>
                 @endif
 
                 @if (session('error'))
-                    <div class="mb-4 p-4 bg-red-500 text-white rounded">
+                    <div id="error-message" class="mb-4 p-4 bg-red-500 text-white rounded">
                         {{ session('error') }}
                     </div>
                 @endif
@@ -28,9 +28,9 @@
                             class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">
                             Upload Bukti Pembayaran
                         </a>
-                    @else
+                    @elseif($pembayaran && $pembayaran->status_verifikasi == 'valid')
                         <a href="{{ route('berkas.index') }}"
-                        class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">
+                            class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">
                             Lanjut
                         </a>
                     @endif
@@ -53,9 +53,9 @@
                                     <td class="border border-gray-300 px-4 py-2">
                                         @if ($pembayaran->status_verifikasi == 'pending')
                                             <span class="px-2 py-1 bg-yellow-500 text-white rounded">Pending</span>
-                                        @elseif ($pembayaran->status_verifikasi == 'approve')
+                                        @elseif ($pembayaran->status_verifikasi == 'valid')
                                             <span class="px-2 py-1 bg-green-500 text-white rounded">Diterima</span>
-                                        @else ($pembayaran->status_verifikasi == 'suspend')
+                                        @else
                                             <span class="px-2 py-1 bg-red-500 text-white rounded">Ditolak</span>
                                         @endif
                                     </td>
@@ -65,12 +65,23 @@
                                             Lihat Bukti
                                         </a>
                                     </td>
-                                    <td class="border border-gray-300 px-4 py-2">
-                                        <a href="{{ route('pembayaran.edit', $pembayaran->id) }}"
-                                            class="text-blue-500 hover:underline">
-                                            Edit
-                                        </a>
-                                    </td>
+                                    @if ($pembayaran && $pembayaran->status_verifikasi == 'rejected')
+                                        <td class="border border-gray-300 px-4 py-2">
+                                            <a href="{{ route('pembayaran.edit', $pembayaran->id) }}"
+                                                class="text-blue-500 hover:underline">
+                                                Edit
+                                            </a>
+                                        </td>
+                                    @elseif($pembayaran && $pembayaran->status_verifikasi == 'valid')
+                                        <td class="border border-gray-300 px-4 py-2"> <a href="{{ route('berkas.index') }}">
+                                           Lanjutkan Pengisian Berkas
+                                           </a>
+                                        </td>
+                                    @else
+                                        <td class="border border-gray-300 px-4 py-2">
+                                           Menunggu Verifikasi Admin
+                                        </td>
+                                    @endif
                                 </tr>
                             @else
                                 <tr>
@@ -86,4 +97,11 @@
             </div>
         </div>
     </div>
+    <script>
+        // Hilangkan pesan flash setelah 10 detik
+        setTimeout(function() {
+            document.getElementById('success-message')?.remove();
+            document.getElementById('error-message')?.remove();
+        }, 5000); // 10,000 ms = 10 detik
+    </script>
 </x-app-layout>

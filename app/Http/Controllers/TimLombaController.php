@@ -7,6 +7,8 @@ use App\Models\TimLomba;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use App\Models\DetilPeserta;
+use App\Models\KategoriLomba;
+
 
 class TimLombaController extends Controller
 {
@@ -16,7 +18,7 @@ class TimLombaController extends Controller
         if ($data == 'register') {
             return redirect()->route('ketua.dashboard')->with('error', 'Tim tidak ditemukan.');
         }
-        $tim = TimLomba::where('id_ketua', Auth::id())->get();
+        $tim = TimLomba::with('kategori')->where('id_ketua', Auth::id())->get();
         $t = TimLomba::where('id_ketua', Auth::id())->first(); // Ambil satu objek, bukan Collection
 
         if ($t && $t->status_final_submit == 1) {
@@ -36,8 +38,8 @@ class TimLombaController extends Controller
         if (TimLomba::where('id_ketua', Auth::id())->exists()) {
             return redirect()->route('tim.index')->with('error', 'Anda hanya dapat membuat satu tim.');
         }
-    
-        return view('tim.create');
+        $kategoriLomba = KategoriLomba::all();
+        return view('tim.create', compact('kategoriLomba'));
     }
     
     public function store(Request $request)
@@ -55,7 +57,7 @@ class TimLombaController extends Controller
         $request->validate([
             'nama_tim' => 'required|string|max:255',
             'nama_kampus' => 'required|string|max:255',
-            'kategori_id' => 'required|string|max:255',
+            'cabang_lomba' => 'required|string|max:255',
             'foto_tim' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
     
@@ -80,7 +82,8 @@ class TimLombaController extends Controller
     public function edit($id)
     {
         $tim = TimLomba::findOrFail($id);
-        return view('tim.edit', compact('tim'));
+        $kategoriLomba = KategoriLomba::all();
+        return view('tim.edit', compact('tim','kategoriLomba'));
     }
 
     public function update(Request $request, $id)
@@ -106,7 +109,7 @@ class TimLombaController extends Controller
         $tim->update([
             'nama_tim' => $request->nama_tim,
             'nama_kampus' => $request->nama_kampus,
-            'cabang_lomba' => $request->cabang_lomba,
+            'kategori_id' => $request->cabang_lomba,
             'foto_tim' => $fotoPath,
         ]);
 

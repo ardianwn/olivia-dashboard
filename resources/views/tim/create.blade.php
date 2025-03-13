@@ -26,22 +26,31 @@
 
                     <div class="mb-4">
                         <label class="block font-semibold">Nama Tim</label>
-                        <input type="text" name="nama_tim" required class="w-full border p-2 rounded focus:ring focus:ring-blue-200">
+                        <input type="text" name="nama_tim" required
+                            class="w-full border p-2 rounded focus:ring focus:ring-blue-200">
                     </div>
 
                     <div class="mb-4">
                         <label class="block font-semibold">Nama Kampus</label>
-                        <input type="text" name="nama_kampus" required class="w-full border p-2 rounded focus:ring focus:ring-blue-200">
+                        <input type="text" name="nama_kampus" required
+                            class="w-full border p-2 rounded focus:ring focus:ring-blue-200">
                     </div>
 
                     <div class="mb-4">
                         <label class="block font-semibold">Cabang Lomba</label>
-                        <input type="text" name="cabang_lomba" required class="w-full border p-2 rounded focus:ring focus:ring-blue-200">
+                        <select name="cabang_lomba" required
+                            class="w-full border p-2 rounded focus:ring focus:ring-blue-200">
+                            <option value="" disabled selected>Pilih Cabang Lomba</option>
+                            @foreach ($kategoriLomba as $kategori)
+                                <option value="{{ $kategori->id }}">{{ $kategori->nama_kategori }}</option>
+                            @endforeach
+                        </select>
                     </div>
 
                     <div class="mb-4">
                         <label class="block font-semibold">Foto Tim</label>
-                        <input type="file" name="foto_tim" required class="w-full border p-2 rounded focus:ring focus:ring-blue-200">
+                        <input type="file" name="foto_tim" required
+                            class="w-full border p-2 rounded focus:ring focus:ring-blue-200">
                     </div>
                     <x-primary-button>Create</x-primary-button>
                 </form>

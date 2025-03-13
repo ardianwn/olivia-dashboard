@@ -19,7 +19,7 @@
             @endif
             <h3 class="text-lg font-semibold mb-2">Data Tim: {{ $tim->nama_tim }}</h3>
             <td class="text-lg font-semibold mb-4">Asal Kampus: {{ $tim->nama_kampus }}</td> <br>
-            <td class="text-lg font-semibold mb-4">Cabang Lomba: {{ $tim->cabang_lomba }}</td> <br>
+            <td class="text-lg font-semibold mb-4">Cabang Lomba: {{ $tim->kategori->nama_kategori }}</td> <br>
             <td class="border border-gray-300 px-4 py-2">Foto Tim:
                 @if ($tim->foto_tim)
                     <img src="{{ asset('storage/' . $tim->foto_tim) }}" alt="Foto Tim"

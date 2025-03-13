@@ -22,10 +22,14 @@ class DetilPesertaController extends Controller
         if ($t && $t->status_final_submit == 1) {
             return redirect()->route('ketua.dashboard')->with('success', 'Silakan menunggu pengumuman');
         }
-        $data = DetilPeserta::where('id_tim', $tim->id)->count();
+       // Ambil jumlah anggota dalam tim yang sesuai dengan id_tim
+$data = DetilPeserta::where('id_tim', $tim->id)->count();
 
-        $anggota = DetilPeserta::where('id_tim', $tim->id)->get();
-        $max = KategoriLomba::value('jumlah_anggota_maksimal');
+// Ambil data anggota tim
+$anggota = DetilPeserta::where('id_tim', $tim->id)->get();
+
+// Ambil jumlah maksimal anggota sesuai dengan kategori lomba tim ini
+$max = KategoriLomba::where('id', $tim->kategori_id)->value('jumlah_anggota_maksimal');
         return view('anggota.index', compact('anggota', 'tim', 'data', 'max'));
     }
 

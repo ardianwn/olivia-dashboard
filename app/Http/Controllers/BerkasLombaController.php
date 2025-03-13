@@ -13,29 +13,31 @@ class BerkasLombaController extends Controller
 {
     public function index()
     {
-       // Cari tim berdasarkan ID ketua yang sedang login
-    $tim = TimLomba::where('id_ketua', Auth::id())->first();
-    $t = TimLomba::where('id_ketua', Auth::id())->first(); // Ambil satu objek, bukan Collection
+        // Cari tim berdasarkan ID ketua yang sedang login
+        $tim = TimLomba::where('id_ketua', Auth::id())->first();
+        $t = TimLomba::where('id_ketua', Auth::id())->first(); // Ambil satu objek, bukan Collection
 
-    if ($t && $t->status_final_submit == 1) {
-        return redirect()->route('ketua.dashboard')->with('success', 'Silakan menunggu pengumuman');
-    }
-    // Jika tim tidak ditemukan, redirect ke halaman pembayaran
-    if (!$tim) {
-        return redirect()->route('pembayaran.index')->with('error', 'Tim tidak ditemukan.');
-    }
-    
-    // Periksa apakah pembayaran telah dilakukan
-    $pembayaran = PembayaranLomba::where('id_tim', $tim->id)->first();
+        if ($t && $t->status_final_submit == 1) {
+            return redirect()->route('ketua.dashboard')->with('success', 'Silakan menunggu pengumuman');
+        }
+        // Jika tim tidak ditemukan, redirect ke halaman pembayaran
+        if (!$tim) {
+            return redirect()->route('pembayaran.index')->with('error', 'Tim tidak ditemukan.');
+        }
 
-    if ($pembayaran) {
-        // Jika sudah membayar, tampilkan halaman berkas
-        $berkas = BerkasLomba::where('id_tim', $tim->id)->get();
-        return view('berkas.index', compact('berkas', 'tim'));
-    } else {
-        // Jika belum membayar, redirect ke halaman pembayaran
-        return redirect()->route('pembayaran.index')->with('error', 'Lakukan pembayaran terlebih dahulu.');
-    }
+        // Periksa apakah pembayaran telah dilakukan
+        $pembayaran = PembayaranLomba::where('id_tim', $tim->id)->first();
+
+        if ($pembayaran && $pembayaran->status_verifikasi == "valid") {
+            $berkas = BerkasLomba::where('id_tim', $tim->id)->get();
+            return view('berkas.index', compact('berkas', 'tim'));
+        } else if ($pembayaran) {
+            // Jika sudah membayar, tampilkan halaman berkas
+            return redirect()->route('pembayaran.index')->with('error', 'Menunggu Verifikasi Admin');
+        } else {
+            // Jika belum membayar, redirect ke halaman pembayaran
+            return redirect()->route('pembayaran.index')->with('error', 'Lakukan pembayaran terlebih dahulu.');
+        }
     }
 
     public function create()
@@ -87,7 +89,8 @@ class BerkasLombaController extends Controller
             $berkas->update(['url_file' => $path]);
         }
 
-        $berkas->update(['nama_file' => $request->nama_file]);
+        $berkas->update(['nama_file' => $request->nama_file,
+        'status_verifikasi' => "pending"]);
 
         return redirect()->route('berkas.index')->with('success', 'Berkas diperbarui!');
     }

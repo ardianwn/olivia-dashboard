@@ -63,10 +63,10 @@
                     @endforeach
 
                     <!-- Kotak Kosong untuk Tambah Anggota -->
-                    @if (count($anggota) <= $max)
+                    @if ($data < $max)
                         <div class="bg-gray-100 shadow-md rounded-lg p-4 text-center">
                         <!-- Foto Anggota -->
-                        <img src="{{ asset('storage/anggota/image.png' ) }}" alt="Foto Anggota" class="w-24 h-24 rounded-full mx-auto border-4 border-red-500">
+                        <img src="{{ asset('brone.png' ) }}" alt="Foto Anggota" class="w-24 h-24 rounded-full mx-auto border-4 border-red-500">
 
 
                         <!-- Role Anggota -->
@@ -85,12 +85,7 @@
                             </a>
                         </div>
                 </div>
-                <!-- <div class="bg-gray-100 shadow-md rounded-lg p-6 flex flex-col justify-center items-center text-center border-2 border-dashed border-gray-300">
-                            <p class="text-gray-600 mb-2">Tambah Anggota</p>
-                            <a href="{{ route('anggota.create') }}" class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-700">
-                                + Tambah Anggota
-                            </a>
-                        </div> -->
+              
                 @endif
             </div>
 

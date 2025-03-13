@@ -14,6 +14,7 @@ class FinalSubmitController extends Controller
     public function index()
     {
         $tim = TimLomba::where('id_ketua', Auth::id())->firstOrFail();
+        
         $anggota = DetilPeserta::where('id_tim', $tim->id)->get();
         $berkas = BerkasLomba::where('id_tim', $tim->id)->get();
         $pembayaran = PembayaranLomba::where('id_tim', $tim->id)->first();

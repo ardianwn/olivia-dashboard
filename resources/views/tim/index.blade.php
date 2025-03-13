@@ -11,17 +11,17 @@
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
                 
                 @if (session('success'))
-                    <div class="mb-4 p-4 bg-green-500 text-white rounded">
-                        {{ session('success') }}
-                    </div>
-                @endif
-
-                @if (session('error'))
-                    <div class="mb-4 p-4 bg-red-500 text-white rounded">
-                        {{ session('error') }}
-                    </div>
-                @endif
-
+                <div id="success-message" class="mb-4 p-4 bg-green-500 text-white rounded">
+                    {{ session('success') }}
+                </div>
+            @endif
+            
+            @if (session('error'))
+                <div id="error-message" class="mb-4 p-4 bg-red-500 text-white rounded">
+                    {{ session('error') }}
+                </div>
+            @endif
+        
                 <div class="flex justify-between items-center mb-4">
                     <h3 class="text-lg font-semibold">Tim yang Terdaftar</h3>
                     @if (Auth::user()->tim === null)
@@ -58,7 +58,7 @@
                                     </td>
                                     <td class="border border-gray-300 px-4 py-2">{{ $t->nama_tim }}</td>
                                     <td class="border border-gray-300 px-4 py-2">{{ $t->nama_kampus }}</td>
-                                    <td class="border border-gray-300 px-4 py-2">{{ $t->cabang_lomba }}</td>
+                                    <td class="border border-gray-300 px-4 py-2">{{ $t->kategori->nama_kategori }}</td>
                                     <td class="border border-gray-300 px-4 py-2">
                                         <div class="flex justify-center space-x-2">
                                             @if ($t->id_ketua === auth()->id()) 
@@ -87,4 +87,11 @@
             </div>
         </div>
     </div>
+    <script>
+        // Hilangkan pesan flash setelah 10 detik
+        setTimeout(function() {
+            document.getElementById('success-message')?.remove();
+            document.getElementById('error-message')?.remove();
+        }, 5000); // 10,000 ms = 10 detik
+    </script>
 </x-app-layout>

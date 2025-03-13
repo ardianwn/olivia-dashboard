@@ -53,7 +53,7 @@ class PembayaranLombaController extends Controller
         $path = $request->file('bukti_pembayaran')->store('bukti_pembayaran', 'public');
 
         PembayaranLomba::create([
-            'id_tim' => Auth::id(),
+            'id_tim' => $tim->id,
             'bukti_pembayaran' => $path,
             'status_verifikasi' => 'pending',
         ]);
@@ -83,7 +83,11 @@ class PembayaranLombaController extends Controller
 
             // Simpan file baru
             $path = $request->file('bukti_pembayaran')->store('bukti_pembayaran', 'public');
-            $pembayaran->update(['bukti_pembayaran' => $path]);
+
+            $pembayaran->update([
+                'bukti_pembayaran' => $path,
+                'status_verifikasi' => "pending"
+            ]);
         }
 
         return redirect()->route('pembayaran.index')->with('success', 'Bukti pembayaran diperbarui!');
