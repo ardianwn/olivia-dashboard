@@ -63,7 +63,7 @@
                     @endforeach
 
                     <!-- Kotak Kosong untuk Tambah Anggota -->
-                    @if (count($anggota) < 3)
+                    @if (count($anggota) <= $max)
                         <div class="bg-gray-100 shadow-md rounded-lg p-4 text-center">
                         <!-- Foto Anggota -->
                         <img src="{{ asset('storage/anggota/image.png' ) }}" alt="Foto Anggota" class="w-24 h-24 rounded-full mx-auto border-4 border-red-500">

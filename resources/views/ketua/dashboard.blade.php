@@ -13,44 +13,48 @@
                         @if (!$tim)
                             Anda sudah mengisi data pribadi anda. Silakan melanjutkan ketahab selanjutnya, <a
                                 href="{{ route('tim.index') }}">klik disini</a>
-                        @endif
-                        <div class="grid grid-cols-3 gap-6">
-                            @foreach ($anggota as $key => $member)
-                                <div class="bg-gray-100 shadow-md rounded-lg p-4 text-center">
-                                    <!-- Foto Anggota -->
-                                    @if ($member->foto_anggota)
-                                        <img src="{{ asset('storage/' . $member->foto_anggota) }}" alt="Foto Anggota"
-                                            class="w-24 h-24 rounded-full mx-auto border-4 border-red-500">
-                                    @else
-                                        <img src="{{ asset('images/default-profile.png') }}" alt="Default Foto"
-                                            class="w-24 h-24 rounded-full mx-auto border-4 border-red-500">
-                                    @endif
-
-                                    <!-- Role Anggota -->
-                                    <h3 class="mt-3 text-lg font-semibold text-gray-800">
-                                        @if ($key == 0)
-                                            Leader
+                        @else
+                            @php
+                                $no = 1;
+                            @endphp
+                            <div class="grid grid-cols-3 gap-6">
+                                @foreach ($anggota as $key => $member)
+                                    <div class="bg-gray-100 shadow-md rounded-lg p-4 text-center">
+                                        <!-- Foto Anggota -->
+                                        @if ($member->foto_anggota)
+                                            <img src="{{ asset('storage/' . $member->foto_anggota) }}" alt="Foto Anggota"
+                                                class="w-24 h-24 rounded-full mx-auto border-4 border-red-500">
                                         @else
-                                            Member {{ $no++ }}
+                                            <img src="{{ asset('images/default-profile.png') }}" alt="Default Foto"
+                                                class="w-24 h-24 rounded-full mx-auto border-4 border-red-500">
                                         @endif
-                                    </h3>
 
-                                    <!-- Nama Anggota -->
-                                    <p class="text-gray-600">{{ $member->nama_lengkap }}</p>
-                                    <p class="text-sm text-gray-500">{{ $member->nim ?? 'Tidak ada tim' }}</p>
+                                        <!-- Role Anggota -->
+                                        <h3 class="mt-3 text-lg font-semibold text-gray-800">
+                                            @if ($key == 0)
+                                                Leader
+                                            @else
+                                                Member {{ $no++ }}
+                                            @endif
+                                        </h3>
 
-                                    <!-- Tombol Aksi -->
-                                    <div class="mt-4 flex justify-center gap-2">
-                                        @if ($member->scan_ktm)
-                                            <a href="{{ asset('storage/' . $member->scan_ktm) }}" target="_blank"
-                                                class="bg-black text-white px-3 py-1 rounded-md hover:bg-gray-700">
-                                                Lihat KTM
-                                            </a>
-                                        @endif
+                                        <!-- Nama Anggota -->
+                                        <p class="text-gray-600">{{ $member->nama_lengkap }}</p>
+                                        <p class="text-sm text-gray-500">{{ $member->nim ?? 'Tidak ada tim' }}</p>
+
+                                        <!-- Tombol Aksi -->
+                                        <div class="mt-4 flex justify-center gap-2">
+                                            @if ($member->scan_ktm)
+                                                <a href="{{ asset('storage/' . $member->scan_ktm) }}" target="_blank"
+                                                    class="bg-black text-white px-3 py-1 rounded-md hover:bg-gray-700">
+                                                    Lihat KTM
+                                                </a>
+                                            @endif
+                                        </div>
                                     </div>
-                                </div>
-                            @endforeach
-                        </div>
+                                @endforeach
+                            </div>
+                        @endif
                     @else
                         <form method="post" action="{{ route('pass.update') }}" enctype="multipart/form-data"
                             class="mt-6 space-y-6">

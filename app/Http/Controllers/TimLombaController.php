@@ -17,6 +17,11 @@ class TimLombaController extends Controller
             return redirect()->route('ketua.dashboard')->with('error', 'Tim tidak ditemukan.');
         }
         $tim = TimLomba::where('id_ketua', Auth::id())->get();
+        $t = TimLomba::where('id_ketua', Auth::id())->first(); // Ambil satu objek, bukan Collection
+
+        if ($t && $t->status_final_submit == 1) {
+            return redirect()->route('ketua.dashboard')->with('success', 'Silakan menunggu pengumuman');
+        }
         return view('tim.index', compact('tim'));
     }
 
@@ -50,7 +55,7 @@ class TimLombaController extends Controller
         $request->validate([
             'nama_tim' => 'required|string|max:255',
             'nama_kampus' => 'required|string|max:255',
-            'cabang_lomba' => 'required|string|max:255',
+            'kategori_id' => 'required|string|max:255',
             'foto_tim' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
     
@@ -63,7 +68,7 @@ class TimLombaController extends Controller
             'id_ketua' => Auth::id(), // Simpan ID ketua tim
             'nama_tim' => $request->nama_tim,
             'nama_kampus' => $request->nama_kampus,
-            'cabang_lomba' => $request->cabang_lomba,
+            'kategori_id' => $request->cabang_lomba,
             'foto_tim' => $fotoPath
         ]);
         $data = ['id_tim' => $tim->id];

@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\BerkasLomba;
+
 use Illuminate\Http\Request;
+
 
 class DocumentVerificationController extends Controller
 {
     // Menampilkan daftar berkas yang diunggah
     public function index()
     {
+        
         $berkas = BerkasLomba::with('tim')->get();
         return view('document-verification.index', compact('berkas'));
     }

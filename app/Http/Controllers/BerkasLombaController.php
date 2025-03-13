@@ -15,12 +15,16 @@ class BerkasLombaController extends Controller
     {
        // Cari tim berdasarkan ID ketua yang sedang login
     $tim = TimLomba::where('id_ketua', Auth::id())->first();
+    $t = TimLomba::where('id_ketua', Auth::id())->first(); // Ambil satu objek, bukan Collection
 
+    if ($t && $t->status_final_submit == 1) {
+        return redirect()->route('ketua.dashboard')->with('success', 'Silakan menunggu pengumuman');
+    }
     // Jika tim tidak ditemukan, redirect ke halaman pembayaran
     if (!$tim) {
         return redirect()->route('pembayaran.index')->with('error', 'Tim tidak ditemukan.');
     }
-
+    
     // Periksa apakah pembayaran telah dilakukan
     $pembayaran = PembayaranLomba::where('id_tim', $tim->id)->first();
 

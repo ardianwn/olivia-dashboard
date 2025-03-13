@@ -20,9 +20,10 @@
             <h3 class="text-lg font-semibold mb-2">Data Tim: {{ $tim->nama_tim }}</h3>
             <td class="text-lg font-semibold mb-4">Asal Kampus: {{ $tim->nama_kampus }}</td> <br>
             <td class="text-lg font-semibold mb-4">Cabang Lomba: {{ $tim->cabang_lomba }}</td> <br>
-            <td class="border border-gray-300 px-4 py-2">Foto Tim: 
+            <td class="border border-gray-300 px-4 py-2">Foto Tim:
                 @if ($tim->foto_tim)
-                    <img src="{{ asset('storage/' . $tim->foto_tim) }}" alt="Foto Tim" class="w-16 h-16 object-cover rounded">
+                    <img src="{{ asset('storage/' . $tim->foto_tim) }}" alt="Foto Tim"
+                        class="w-16 h-16 object-cover rounded">
                 @else
                     <span class="text-gray-500">Tidak ada foto</span>
                 @endif
@@ -47,7 +48,8 @@
                                 <td class="border px-4 py-2">{{ $member->no_wa }}</td>
                                 <td class="border px-4 py-2">
                                     @if ($member->scan_ktm)
-                                        <a href="{{ asset('storage/' . $member->scan_ktm) }}" target="_blank" class="text-blue-600 hover:underline">Lihat</a>
+                                        <a href="{{ asset('storage/' . $member->scan_ktm) }}" target="_blank"
+                                            class="text-blue-600 hover:underline">Lihat</a>
                                     @else
                                         <span class="text-red-500">Belum Upload</span>
                                     @endif
@@ -72,7 +74,8 @@
                             <tr class="text-center">
                                 <td class="border px-4 py-2">{{ $file->nama_file }}</td>
                                 <td class="border px-4 py-2">
-                                    <a href="{{ asset('storage/' . $file->url_file) }}" target="_blank" class="text-blue-600 hover:underline">Lihat</a>
+                                    <a href="{{ asset('storage/' . $file->url_file) }}" target="_blank"
+                                        class="text-blue-600 hover:underline">Lihat</a>
                                 </td>
                             </tr>
                         @endforeach
@@ -88,12 +91,14 @@
                     <span class="text-red-500">Belum Upload</span>
                 @endif
             </div>
-
-            @if (!$tim->final_submit)
-                <form action="{{ route('final.submit') }}" method="POST" onsubmit="return confirm('Setelah final submit, data tidak bisa diubah lagi. Lanjutkan?')">
-                    @csrf
-                    <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded">Final Submit</button>
-                </form>
+            @if ($tim->status_final_submit == 0)
+                @if (!$tim->final_submit)
+                    <form action="{{ route('final.submit') }}" method="POST"
+                        onsubmit="return confirm('Setelah final submit, data tidak bisa diubah lagi. Lanjutkan?')">
+                        @csrf
+                        <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded">Final Submit</button>
+                    </form>
+                @endif
             @else
                 <p class="text-lg text-green-600 font-bold">Sudah Final Submit. Tidak dapat mengubah data.</p>
             @endif

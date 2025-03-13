@@ -19,7 +19,6 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\CompetitionCategoryController;
 use App\Http\Controllers\NotificationController;
 
-
 Route::put('/update', [DashboardController::class, 'update'])->name('pass.update');
 // Halaman utama diarahkan ke login
 Route::redirect('/', '/login');
@@ -81,14 +80,17 @@ Route::middleware(['auth'])->group(function () {
 
     // ✅ Dashboard Ketua Tim & Fitur Pendaftaran Lomba
     Route::middleware(['role:ketua_tim'])->group(function () {
-
+        
+      
         Route::get('/ketua', [DashboardController::class, 'index'])->name('ketua.dashboard');
-       
+        
+        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+        
+        
         Route::get('/member/{id}/ktm', [DetilPesertaController::class, 'showKtm'])->name('show.ktm');
 
 
         // 👤 Profile
-        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
@@ -135,6 +137,7 @@ Route::middleware(['auth'])->group(function () {
         // ✅ FINAL SUBMIT
         Route::get('/final-submit', [FinalSubmitController::class, 'index'])->name('final.submit.index');
         Route::post('/final-submit', [FinalSubmitController::class, 'submitFinal'])->name('final.submit');
+
 
         // 📢 PENGUMUMAN LOMBA
         Route::get('/pengumuman', [PengumumanController::class, 'index'])->name('pengumuman.index');

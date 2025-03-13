@@ -7,6 +7,7 @@ use App\Models\DetilPeserta;
 use App\Models\TimLomba;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Models\KategoriLomba;
 
 class DetilPesertaController extends Controller
 {
@@ -16,10 +17,16 @@ class DetilPesertaController extends Controller
         if (!$tim) {
             return redirect()->route('tim.index')->with('error', 'Tim tidak ditemukan.');
         }
+        $t = TimLomba::where('id_ketua', Auth::id())->first(); // Ambil satu objek, bukan Collection
+
+        if ($t && $t->status_final_submit == 1) {
+            return redirect()->route('ketua.dashboard')->with('success', 'Silakan menunggu pengumuman');
+        }
         $data = DetilPeserta::where('id_tim', $tim->id)->count();
 
         $anggota = DetilPeserta::where('id_tim', $tim->id)->get();
-        return view('anggota.index', compact('anggota', 'tim', 'data'));
+        $max = KategoriLomba::value('jumlah_anggota_maksimal');
+        return view('anggota.index', compact('anggota', 'tim', 'data', 'max'));
     }
 
     public function create()

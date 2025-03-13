@@ -64,14 +64,14 @@
                                             @if ($t->id_ketua === auth()->id()) 
                                                 <a href="{{ route('tim.edit', $t->id) }}" class="text-blue-500 hover:underline mx-2">
                                                     Edit 
-                                                </a> | 
+                                                </a> 
                                             @endif
-                                            <form action="{{ route('tim.destroy', $t->id) }}" method="POST">
+                                            {{-- <form action="{{ route('tim.destroy', $t->id) }}" method="POST">
                                                 @csrf @method('DELETE')
                                                 <button type="submit" class="text-red-500 hover:underline"" onclick="return confirm('Yakin ingin menghapus tim ini?')">
                                                     Hapus
                                                 </button>
-                                            </form>
+                                            </form> --}}
                                         </div>
                                     </td>
                                 </tr>

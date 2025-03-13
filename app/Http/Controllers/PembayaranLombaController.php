@@ -13,7 +13,11 @@ class PembayaranLombaController extends Controller
     public function index()
     {
         $tim = TimLomba::where('id_ketua', Auth::id())->first();
-        
+        $t = TimLomba::where('id_ketua', Auth::id())->first(); // Ambil satu objek, bukan Collection
+
+        if ($t && $t->status_final_submit == 1) {
+            return redirect()->route('ketua.dashboard')->with('success', 'Silakan menunggu pengumuman');
+        }
         if (!$tim) {
             return redirect()->route('dashboard')->with('error', 'Tim tidak ditemukan.');
         }
@@ -25,7 +29,7 @@ class PembayaranLombaController extends Controller
     public function create()
     {
         $tim = TimLomba::where('id_ketua', Auth::id())->first();
-        
+
         if (!$tim) {
             return redirect()->route('dashboard')->with('error', 'Tim tidak ditemukan.');
         }
