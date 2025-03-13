@@ -70,12 +70,8 @@
 
 
                         <!-- Role Anggota -->
-                        <h3 class="mt-3 text-lg font-semibold text-gray-800">
-                            @if ($index == 0)
-                            Leader
-                            @else
+                        <h3 class="mt-3 text-lg font-semibold text-gray-800">   
                             Member {{ $no++ }}
-                            @endif
                         </h3>
 
                         <!-- Nama Anggota -->

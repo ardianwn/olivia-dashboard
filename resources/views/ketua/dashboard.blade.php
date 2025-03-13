@@ -10,6 +10,9 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     @if (Auth::user()->status == "active")
+                        @if (!$tim)
+                            Anda sudah mengisi data pribadi anda. Silakan melanjutkan ketahab selanjutnya, <a href="{{route ('tim.index')}}">klik disini</a>
+                        @endif
                     <div class="grid grid-cols-3 gap-6">
                             @foreach ($anggota as $key => $member)
                                 <div class="bg-gray-100 p-6 rounded-lg text-center">

@@ -11,7 +11,11 @@ use App\Models\DetilPeserta;
 class TimLombaController extends Controller
 {
     public function index()
-    {
+    {   
+        $data = Auth::User()->status;
+        if ($data == 'register') {
+            return redirect()->route('ketua.dashboard')->with('error', 'Tim tidak ditemukan.');
+        }
         $tim = TimLomba::where('id_ketua', Auth::id())->get();
         return view('tim.index', compact('tim'));
     }
