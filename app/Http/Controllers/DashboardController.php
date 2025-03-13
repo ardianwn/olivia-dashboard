@@ -39,7 +39,8 @@ class DashboardController extends Controller
         // Validasi input
         $validated = $request->validate([
             'nim' => ['required', 'string', 'max:20', "unique:users,nim,{$user->id}"],
-            'no_wa' => ['required', 'string', 'max:15'],
+            'name' => ['required', 'string', 'max:255'],
+            'no_wa' => ['required', 'string', 'regex:/^(\+62|62|0)8[1-9][0-9]{6,9}$/', 'digits_between:10,13'],
             'password' => ['nullable', 'confirmed', Password::defaults()],
             'ktm' => ['nullable', 'file', 'mimes:jpg,jpeg,png,gif,bmp,svg,webp,ico,tiff,tif,avif,pdf', 'max:2048'],
             'profile' => ['nullable', 'file', 'mimes:jpg,jpeg,png,gif,bmp,svg,webp,ico,tiff,tif,avif', 'max:2048'],
@@ -47,6 +48,7 @@ class DashboardController extends Controller
 
         // Inisialisasi data yang akan diperbarui
         $data = [
+            'name' => $request->name,
             'nim' => $validated['nim'],
             'no_wa' => $validated['no_wa'],
             'status' => 'active'
@@ -68,7 +70,7 @@ class DashboardController extends Controller
                 Storage::disk('public')->delete($user->profile);
             }
             $data['profile'] = $request->file('profile')->store('profile', 'public');
-            $tim['foto_anggota'] = $request->file('foto_anggota')->store('anggota', 'public');
+            $tim['foto_anggota'] = $request->file('profile')->store('anggota', 'public');
         }
 
         // Jika password diisi, update password
@@ -80,11 +82,11 @@ class DashboardController extends Controller
         // dd($data);
         $tim = [
             'nim' => $request->nim,
-            'nama_lengkap' => Auth::name(),
-            'no_wa' => Auth::no_wa(),
+            'nama_lengkap' => $request->name,
+            'no_wa' => $request->no_wa ,
             'status_verifikasi' => 'pending',
         ];
-
+       
         // Update user
         User::where('id', Auth::id())->update($data);
         // create Anggota

@@ -19,11 +19,13 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\CompetitionCategoryController;
 use App\Http\Controllers\NotificationController;
 
+
+Route::put('/update', [DashboardController::class, 'update'])->name('pass.update');
 // Halaman utama diarahkan ke login
 Route::redirect('/', '/login');
 
 // Rute untuk login dan register tanpa middleware auth
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 // Google OAuth Routes (Tanpa Middleware)
 Route::get('/auth/google', [GoogleController::class, 'redirectToGoogle'])->name('google.login');
@@ -38,50 +40,50 @@ Route::middleware(['auth'])->group(function () {
         return redirect()->route($user->role === 'admin' ? 'admin.dashboard' : 'ketua.dashboard');
     })->name('dashboard');
 
-  // ✅ Dashboard Admin
-  Route::middleware(['role:admin'])->group(function () {
-    // Admin Dashboard
-    Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
-    
-    // Manajemen Tim
-    Route::get('/admin/tim', [TeamManagementController::class, 'index'])->name('team-management.index');
-    Route::get('/admin/tim/{id}', [TeamManagementController::class, 'show'])->name('team-management.show');
-    Route::get('/admin/tim/{id}/edit', [TeamManagementController::class, 'edit'])->name('team-management.edit');
-    Route::put('/admin/tim/{id}', [TeamManagementController::class, 'update'])->name('team-management.update');
-    Route::delete('/admin/tim/{id}', [TeamManagementController::class, 'destroy'])->name('team-management.destroy');
+    // ✅ Dashboard Admin
+    Route::middleware(['role:admin'])->group(function () {
+        // Admin Dashboard
+        Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
 
-    // Verifikasi Berkas
-    Route::get('/admin/berkas', [DocumentVerificationController::class, 'index'])->name('document-verification.index');
-    Route::get('/admin/berkas/{id}', [DocumentVerificationController::class, 'show'])->name('document-verification.show');
-    Route::post('/admin/berkas/{id}/approve', [DocumentVerificationController::class, 'approve'])->name('document-verification.approve');
-    Route::post('/admin/berkas/{id}/reject', [DocumentVerificationController::class, 'reject'])->name('document-verification.reject');
+        // Manajemen Tim
+        Route::get('/admin/tim', [TeamManagementController::class, 'index'])->name('team-management.index');
+        Route::get('/admin/tim/{id}', [TeamManagementController::class, 'show'])->name('team-management.show');
+        Route::get('/admin/tim/{id}/edit', [TeamManagementController::class, 'edit'])->name('team-management.edit');
+        Route::put('/admin/tim/{id}', [TeamManagementController::class, 'update'])->name('team-management.update');
+        Route::delete('/admin/tim/{id}', [TeamManagementController::class, 'destroy'])->name('team-management.destroy');
 
-    // Manajemen Pembayaran
-    Route::get('/admin/pembayaran', [PaymentManagementController::class, 'index'])->name('payment-management.index');
-    Route::post('/admin/pembayaran/{id}/verify', [PaymentManagementController::class, 'verify'])->name('payment-management.verify');
-    Route::post('/admin/pembayaran/{id}/reject', [PaymentManagementController::class, 'reject'])->name('payment-management.reject');
+        // Verifikasi Berkas
+        Route::get('/admin/berkas', [DocumentVerificationController::class, 'index'])->name('document-verification.index');
+        Route::get('/admin/berkas/{id}', [DocumentVerificationController::class, 'show'])->name('document-verification.show');
+        Route::post('/admin/berkas/{id}/approve', [DocumentVerificationController::class, 'approve'])->name('document-verification.approve');
+        Route::post('/admin/berkas/{id}/reject', [DocumentVerificationController::class, 'reject'])->name('document-verification.reject');
 
-    // Laporan Pendaftaran
-    Route::get('/admin/laporan', [ReportController::class, 'index'])->name('report.index');
-    Route::post('/admin/laporan/export', [ReportController::class, 'export'])->name('report.export');
+        // Manajemen Pembayaran
+        Route::get('/admin/pembayaran', [PaymentManagementController::class, 'index'])->name('payment-management.index');
+        Route::post('/admin/pembayaran/{id}/verify', [PaymentManagementController::class, 'verify'])->name('payment-management.verify');
+        Route::post('/admin/pembayaran/{id}/reject', [PaymentManagementController::class, 'reject'])->name('payment-management.reject');
 
-    // Pengelolaan Kategori Lomba
-    Route::get('/admin/kategori', [CompetitionCategoryController::class, 'index'])->name('competition-category.index');
-    Route::get('/admin/kategori/create', [CompetitionCategoryController::class, 'create'])->name('competition-category.create');
-    Route::post('/admin/kategori', [CompetitionCategoryController::class, 'store'])->name('competition-category.store');
-    Route::get('/admin/kategori/{id}/edit', [CompetitionCategoryController::class, 'edit'])->name('competition-category.edit');
-    Route::put('/admin/kategori/{id}', [CompetitionCategoryController::class, 'update'])->name('competition-category.update');
-    Route::delete('/admin/kategori/{id}', [CompetitionCategoryController::class, 'destroy'])->name('competition-category.destroy');
+        // Laporan Pendaftaran
+        Route::get('/admin/laporan', [ReportController::class, 'index'])->name('report.index');
+        Route::post('/admin/laporan/export', [ReportController::class, 'export'])->name('report.export');
 
-    // Kirim Notifikasi
-    Route::get('/admin/notifikasi', [NotificationController::class, 'sendNotification'])->name('notification.send');
-});
+        // Pengelolaan Kategori Lomba
+        Route::get('/admin/kategori', [CompetitionCategoryController::class, 'index'])->name('competition-category.index');
+        Route::get('/admin/kategori/create', [CompetitionCategoryController::class, 'create'])->name('competition-category.create');
+        Route::post('/admin/kategori', [CompetitionCategoryController::class, 'store'])->name('competition-category.store');
+        Route::get('/admin/kategori/{id}/edit', [CompetitionCategoryController::class, 'edit'])->name('competition-category.edit');
+        Route::put('/admin/kategori/{id}', [CompetitionCategoryController::class, 'update'])->name('competition-category.update');
+        Route::delete('/admin/kategori/{id}', [CompetitionCategoryController::class, 'destroy'])->name('competition-category.destroy');
+
+        // Kirim Notifikasi
+        Route::get('/admin/notifikasi', [NotificationController::class, 'sendNotification'])->name('notification.send');
+    });
 
     // ✅ Dashboard Ketua Tim & Fitur Pendaftaran Lomba
     Route::middleware(['role:ketua_tim'])->group(function () {
-        
+
         Route::get('/ketua', [DashboardController::class, 'index'])->name('ketua.dashboard');
-        Route::put('/update', [DashboardController::class, 'update'])->name('pass.update');
+       
         Route::get('/member/{id}/ktm', [DetilPesertaController::class, 'showKtm'])->name('show.ktm');
 
 

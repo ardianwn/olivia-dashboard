@@ -25,7 +25,7 @@ class User extends Authenticatable
     // Tambahkan default value
     protected $attributes = [
         'role' => 'ketua_tim',
-        'status' => 'active',
+        'status' => 'register',
     ];
     public function timLomba()
     {

@@ -36,9 +36,11 @@
                         <div>
                             <x-input-label for="nama_lengkap" value="Nama Lengkap" />
                             <x-text-input type="text" class="mt-1 block w-full "
-                                placeholder="{{ Auth::user()->name }}" readonly />
+                                name="name" value="{{ old('name', Auth::user()->name) }}"/>
+                                <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                            
                         </div>
-                        <br>
+                       
                         <!-- NIM -->
                         <div class="mb-4">
                             <x-input-label for="nim" value="NIM" />
