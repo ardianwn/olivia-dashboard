@@ -62,10 +62,8 @@ class TimLombaController extends Controller
             'cabang_lomba' => $request->cabang_lomba,
             'foto_tim' => $fotoPath
         ]);
-        $data = [
-            'id_tim' => $tim['id'],
-        ];
-       DetilPeserta::where('nim', Auth::nim())->update($data);
+        $data = ['id_tim' => $tim->id];
+       DetilPeserta::where('nim', Auth::user()->nim)->update($data);
     
         return redirect()->route('tim.index')->with('success', 'Tim berhasil dibuat.');
     }

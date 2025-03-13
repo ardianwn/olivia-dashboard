@@ -81,6 +81,7 @@ class DashboardController extends Controller
         // Debugging untuk melihat apakah gambar tersimpan dengan benar
         // dd($data);
         $tim = [
+            
             'nim' => $request->nim,
             'nama_lengkap' => $request->name,
             'no_wa' => $request->no_wa ,
