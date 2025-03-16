@@ -13,6 +13,7 @@ class FinalSubmitController extends Controller
 {
     public function index()
     {
+        
         $tim = TimLomba::where('id_ketua', Auth::id())->firstOrFail();
         
         $anggota = DetilPeserta::where('id_tim', $tim->id)->get();
@@ -24,17 +25,16 @@ class FinalSubmitController extends Controller
 
     public function submitFinal()
     {
-        $tim = TimLomba::where('id_ketua', Auth::id())->firstOrFail();
+        $tim = TimLomba::where('id_ketua', Auth::id())->first();
 
-        // Cek apakah semua berkas sudah diupload sebelum final submit
-        $berkasCount = BerkasLomba::where('id_tim', $tim->id)->count();
-        $pembayaran = PembayaranLomba::where('id_tim', $tim->id)->first();
-
-        if ($berkasCount == 0 || !$pembayaran) {
-            return redirect()->back()->with('error', 'Semua dokumen harus diunggah sebelum melakukan Final Submit.');
+        $berkas = BerkasLomba::where('id_tim', $tim->id)->first();
+       
+        if ($berkas->status_verifikasi == 'valid') {
+            $tim->update(['status_final_submit' => 1]);
+        }else{
+            return redirect()->back()->with('error', 'Semua dokumen harus diunggah sebelum melakukan Final Submit.');            
         }
-
-        $tim->update(['final_submit' => true]);
+        
 
         return redirect()->route('final.submit.index')->with('success', 'Final Submit berhasil. Data tidak bisa diubah lagi.');
     }

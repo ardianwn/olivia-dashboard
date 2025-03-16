@@ -60,28 +60,86 @@
                 </table>
             </div>
 
-            <div class="mb-6">
-                <h4 class="text-md font-semibold">Berkas Lomba</h4>
-                <table class="w-full border-collapse border border-gray-300 mt-2">
-                    <thead class="bg-gray-200">
-                        <tr>
-                            <th class="border px-4 py-2">Nama File</th>
-                            <th class="border px-4 py-2">File</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($berkas as $file)
+            <div class="overflow-x-auto">
+                    <table class="w-full table-auto border-collapse border border-gray-300">
+                        <thead>
+                            <tr class="bg-gray-200">
+                                <th class="border border-gray-300 px-4 py-2">No</th>
+                                <th class="border border-gray-300 px-4 py-2">Lembar Pengesahan</th>
+                                <th class="border border-gray-300 px-4 py-2">Pernyataan Orisinalitas</th>
+                                <th class="border border-gray-300 px-4 py-2">Biodata</th>
+                                <th class="border border-gray-300 px-4 py-2">Formulir Pendaftaran</th>
+                                <th class="border border-gray-300 px-4 py-2">Karya</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @php
+                            $no = 1;
+                            @endphp
+
+                            @forelse ($berkas as $index => $b)
                             <tr class="text-center">
-                                <td class="border px-4 py-2">{{ $file->nama_file }}</td>
-                                <td class="border px-4 py-2">
-                                    <a href="{{ asset('storage/' . $file->url_file) }}" target="_blank"
-                                        class="text-blue-600 hover:underline">Lihat</a>
+                                <td class="border border-gray-300 px-4 py-2">{{ $no++ }}</td>
+
+                                <!-- Pastikan file ada sebelum menampilkan link download -->
+                                <td class="border border-gray-300 px-4 py-2">
+                                    @if ($b->pengesahan)
+                                    <a href="{{ asset('storage/' . $b->pengesahan) }}" target="_blank" class="text-blue-600 hover:underline">
+                                        Download
+                                    </a>
+                                    @else
+                                    <span class="text-gray-500">Tidak tersedia</span>
+                                    @endif
+                                </td>
+
+                                <td class="border border-gray-300 px-4 py-2">
+                                    @if ($b->orisinalitas)
+                                    <a href="{{ asset('storage/' . $b->orisinalitas) }}" target="_blank" class="text-blue-600 hover:underline">
+                                        Download
+                                    </a>
+                                    @else
+                                    <span class="text-gray-500">Tidak tersedia</span>
+                                    @endif
+                                </td>
+
+                                <td class="border border-gray-300 px-4 py-2">
+                                    @if ($b->biodata)
+                                    <a href="{{ asset('storage/' . $b->biodata) }}" target="_blank" class="text-blue-600 hover:underline">
+                                        Download
+                                    </a>
+                                    @else
+                                    <span class="text-gray-500">Tidak tersedia</span>
+                                    @endif
+                                </td>
+
+                                <td class="border border-gray-300 px-4 py-2">
+                                    @if ($b->form_pendaftaran)
+                                    <a href="{{ asset('storage/' . $b->form_pendaftaran) }}" target="_blank" class="text-blue-600 hover:underline">
+                                        Download
+                                    </a>
+                                    @else
+                                    <span class="text-gray-500">Tidak tersedia</span>
+                                    @endif
+                                </td>
+
+                                <td class="border border-gray-300 px-4 py-2">
+                                    @if ($b->url_file)
+                                    <a href="{{ $b->url_file }}" target="_blank" class="text-blue-600 hover:underline">
+                                        Lihat Karya
+                                    </a>
+                                    @else
+                                    <span class="text-gray-500">Tidak tersedia</span>
+                                    @endif
                                 </td>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+                            @empty
+                            <tr>
+                                <td colspan="8" class="text-center p-4 text-gray-500">Belum ada berkas yang diunggah.</td>
+                            </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
 
             <div class="mb-6">
                 <h4 class="text-md font-semibold">Bukti Pembayaran</h4>
@@ -92,13 +150,11 @@
                 @endif
             </div>
             @if ($tim->status_final_submit == 0)
-                @if (!$tim->final_submit)
                     <form action="{{ route('final.submit') }}" method="POST"
                         onsubmit="return confirm('Setelah final submit, data tidak bisa diubah lagi. Lanjutkan?')">
                         @csrf
                         <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded">Final Submit</button>
                     </form>
-                @endif
             @else
                 <p class="text-lg text-green-600 font-bold">Sudah Final Submit. Tidak dapat mengubah data.</p>
             @endif

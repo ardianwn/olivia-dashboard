@@ -120,7 +120,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/create', [BerkasLombaController::class, 'create'])->name('create');
             Route::post('/', [BerkasLombaController::class, 'store'])->name('store');
             Route::get('/{id}/edit', [BerkasLombaController::class, 'edit'])->name('edit');
-            Route::put('/{id}', [BerkasLombaController::class, 'update'])->name('update');
+            Route::put('/{berkas}', [BerkasLombaController::class, 'update'])->name('update');
             Route::delete('/{id}', [BerkasLombaController::class, 'destroy'])->name('destroy');
         });
 

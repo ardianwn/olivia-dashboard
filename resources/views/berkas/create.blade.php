@@ -23,13 +23,30 @@
                     @csrf
 
                     <div class="mb-4">
-                        <label class="block text-gray-700 font-semibold mb-2">Nama Berkas</label>
-                        <input type="text" name="nama_file" class="w-full border-gray-300 rounded p-2" required>
+                        <label class="block text-gray-700 font-semibold mb-2">Lembar Pengesahan (PDF/max-size-5mb)</label>
+                        <input type="file" name="pengesahan" class="w-full border-gray-300 rounded p-2" required>
+                    </div>
+
+                    
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-semibold mb-2">Pernyataan Orisinalitas (PDF/max-size-5mb)</label>
+                        <input type="file" name="orisinalitas" class="w-full border-gray-300 rounded p-2" required>
+                    </div>
+
+                    
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-semibold mb-2">Biodata Peserta & Pembimbing (PDF/max-size-5mb)</label>
+                        <input type="file" name="biodata" class="w-full border-gray-300 rounded p-2" required>
                     </div>
 
                     <div class="mb-4">
-                        <label class="block text-gray-700 font-semibold mb-2">Upload Berkas (PDF/DOC/DOCX)</label>
-                        <input type="file" name="url_file" class="w-full border-gray-300 rounded p-2" required>
+                        <label class="block text-gray-700 font-semibold mb-2">Formulir Pendaftaran (PDF/max-size-5mb)</label>
+                        <input type="file" name="form_pendaftaran" class="w-full border-gray-300 rounded p-2" required>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-semibold mb-2">Link Drive Karya (Link)</label>
+                        <input type="text" name="url_file" class="w-full border-gray-300 rounded p-2" required>
                     </div>
 
                     <x-primary-button>Upload</x-primary-button>

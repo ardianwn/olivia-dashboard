@@ -10,7 +10,7 @@ class BerkasLomba extends Model
     use HasFactory;
 
     protected $table = 'berkas_lomba';
-    protected $fillable = ['id_tim', 'nama_file' , 'url_file', 'status_verifikasi'];
+    protected $fillable = ['id_tim', 'pengesahan' , 'orisinalitas', 'biodata', 'form_pendaftaran', 'url_file', 'status_verifikasi'];
 
     public function tim()
     {
