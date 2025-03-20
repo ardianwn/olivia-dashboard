@@ -23,10 +23,10 @@
                                         <!-- Foto Anggota -->
                                         @if ($member->foto_anggota)
                                             <img src="{{ asset('storage/' . $member->foto_anggota) }}" alt="Foto Anggota"
-                                                class="w-24 h-24 rounded-full mx-auto border-4 border-red-500">
+                                                class="w-24 h-24 rounded-full mx-auto border-4 border-blue-800">
                                         @else
                                             <img src="{{ asset('images/default-profile.png') }}" alt="Default Foto"
-                                                class="w-24 h-24 rounded-full mx-auto border-4 border-red-500">
+                                                class="w-24 h-24 rounded-full mx-auto border-4 border-blue-800">
                                         @endif
 
                                         <!-- Role Anggota -->
@@ -46,7 +46,7 @@
                                         <div class="mt-4 flex justify-center gap-2">
                                             @if ($member->scan_ktm)
                                                 <a href="{{ asset('storage/' . $member->scan_ktm) }}" target="_blank"
-                                                    class="bg-black text-white px-3 py-1 rounded-md hover:bg-gray-700">
+                                                    class="bg-blue-800 text-white px-3 py-1 rounded-md hover:bg-gray-700">
                                                     Lihat KTM
                                                 </a>
                                             @endif
