@@ -13,7 +13,7 @@ class ReportController extends Controller
     // Menampilkan laporan pendaftaran lomba
     public function index()
     {
-        $timLomba = TimLomba::all();
+        $timLomba = TimLomba::All();
         return view('report.index', compact('timLomba'));
     }
 

@@ -37,16 +37,26 @@
                                             {{ ucfirst($item->status_verifikasi) }}
                                         </span>
                                     </td>
-                                    <td class="py-3 px-6 text-center">
-                                        <a
-                                           class="text-green-500 hover:text-green-600 font-medium mr-4">
-                                            Terima
-                                        </a>
-                                        <a
-                                           class="text-red-500 hover:text-red-600 font-medium">
-                                            Tolak
-                                        </a>
-                                    </td>
+                                  
+                                        @if($item->status_verifikasi == 'pending')
+                                        <form action="{{ route('payment-management.update',$item->id) }}" method="POST" enctype="multipart/form-data">
+                                            @csrf
+                                            @method('PUT')
+                                            <td class="py-3 px-6 text-center">
+                                                <button  type="submit" name="status" value="valid" 
+                                                    class="text-green-500 hover:text-green-600 font-medium mr-4">
+                                                    Terima
+                                                </button>
+                                                <button type="submit" name="status" value="rejected" 
+                                                    class="text-red-500 hover:text-red-600 font-medium">
+                                                    Tolak
+                                                </button>
+                                            </td>
+                                        </form>
+                                        @else
+                                        <td class="py-3 px-6 text-center"> Berkas sudah diverifikasi </td>
+                                        @endif
+                                  
                                 </tr>
                             @endforeach
                         </tbody>

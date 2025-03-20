@@ -21,8 +21,8 @@
                             @foreach ($timLomba as $tim)
                                 <tr>
                                     <td class="py-3 px-6">{{ $tim->nama_tim }}</td>
-                                    <td class="py-3 px-6">{{ $tim->nama_kategori}}</td>
-                                    <td class="py-3 px-6">{{ $tim->status_verifikasi }}</td>
+                                    <td class="py-3 px-6">{{ $tim->nama_kampus }}</td>
+                                    <td class="py-3 px-6">{{ $tim->kategori->nama_kategori}}</td>
                                 </tr>
                             @endforeach
                         </tbody>

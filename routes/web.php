@@ -45,22 +45,17 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
 
         // Manajemen Tim
-        Route::get('/admin/tim', [TeamManagementController::class, 'index'])->name('team-management.index');
-        Route::get('/admin/tim/{id}', [TeamManagementController::class, 'show'])->name('team-management.show');
-        Route::get('/admin/tim/{id}/edit', [TeamManagementController::class, 'edit'])->name('team-management.edit');
-        Route::put('/admin/tim/{id}', [TeamManagementController::class, 'update'])->name('team-management.update');
-        Route::delete('/admin/tim/{id}', [TeamManagementController::class, 'destroy'])->name('team-management.destroy');
-
         // Verifikasi Berkas
         Route::get('/admin/berkas', [DocumentVerificationController::class, 'index'])->name('document-verification.index');
         Route::get('/admin/berkas/{id}', [DocumentVerificationController::class, 'show'])->name('document-verification.show');
-        Route::post('/admin/berkas/{id}/approve', [DocumentVerificationController::class, 'approve'])->name('document-verification.approve');
-        Route::post('/admin/berkas/{id}/reject', [DocumentVerificationController::class, 'reject'])->name('document-verification.reject');
+        Route::put('/update/{id}/berkas', [DocumentVerificationController::class, 'update'])->name('document-verification.update');
+        // Route::post('/admin/berkas/{id}/approve', [DocumentVerificationController::class, 'approve'])->name('document-verification.approve');
+        // Route::post('/admin/berkas/{id}/reject', [DocumentVerificationController::class, 'reject'])->name('document-verification.reject');
 
         // Manajemen Pembayaran
         Route::get('/admin/pembayaran', [PaymentManagementController::class, 'index'])->name('payment-management.index');
-        Route::post('/admin/pembayaran/{id}/verify', [PaymentManagementController::class, 'verify'])->name('payment-management.verify');
-        Route::post('/admin/pembayaran/{id}/reject', [PaymentManagementController::class, 'reject'])->name('payment-management.reject');
+        Route::put('/admin/pembayaran/{id}/update', [PaymentManagementController::class, 'update'])->name('payment-management.update');
+       
 
         // Laporan Pendaftaran
         Route::get('/admin/laporan', [ReportController::class, 'index'])->name('report.index');
