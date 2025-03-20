@@ -32,11 +32,6 @@
                         <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
                             {{ __('Dashboard') }}
                         </x-nav-link>
-                        
-                        <!-- Link ke Manajemen Tim -->
-                        <x-nav-link :href="route('team-management.index')" :active="request()->routeIs('team-management.index')">
-                            {{ __('Tim') }}
-                        </x-nav-link>
 
                         <!-- Link ke Manajemen Pembayaran -->
                         <x-nav-link :href="route('payment-management.index')" :active="request()->routeIs('payment-management.index')">
@@ -48,19 +43,14 @@
                             {{ __('Berkas') }}
                         </x-nav-link>
 
-                        <!-- Link ke Laporan Pendaftaran -->
-                        <x-nav-link :href="route('report.index')" :active="request()->routeIs('report.index')">
-                            {{ __('Laporan') }}
-                        </x-nav-link>
-
                         <!-- Link ke Pengelolaan Kategori Lomba -->
                         <x-nav-link :href="route('competition-category.index')" :active="request()->routeIs('competition-category.index')">
                             {{ __('Kategori') }}
                         </x-nav-link>
 
-                        <!-- Link untuk Mengirim Notifikasi -->
-                        <x-nav-link :href="route('notification.send')" :active="request()->routeIs('notification.send')">
-                            {{ __('Kirim Notifikasi') }}
+                        <!-- Link ke Laporan Pendaftaran -->
+                        <x-nav-link :href="route('report.index')" :active="request()->routeIs('report.index')">
+                            {{ __('Laporan') }}
                         </x-nav-link>
                     @endif
                 </div>
@@ -81,9 +71,6 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit')">
-                            {{ __('Profile') }}
-                        </x-dropdown-link>
 
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">

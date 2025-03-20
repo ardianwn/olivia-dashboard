@@ -13,15 +13,15 @@
                         <thead>
                             <tr>
                                 <th class="py-3 px-6 text-left">Nama Tim</th>
+                                <th class="py-3 px-6 text-left">Asal Kampus</th>
                                 <th class="py-3 px-6 text-left">Kategori Lomba</th>
-                                <th class="py-3 px-6 text-left">Status Verifikasi</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($timLomba as $tim)
                                 <tr>
                                     <td class="py-3 px-6">{{ $tim->nama_tim }}</td>
-                                    <td class="py-3 px-6">{{ $tim->cabang_lomba }}</td>
+                                    <td class="py-3 px-6">{{ $tim->nama_kategori}}</td>
                                     <td class="py-3 px-6">{{ $tim->status_verifikasi }}</td>
                                 </tr>
                             @endforeach

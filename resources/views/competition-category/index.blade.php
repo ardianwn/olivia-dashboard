@@ -34,7 +34,7 @@
                                         <td class="py-3 px-6 text-center">
                                             <a href="{{ route('competition-category.edit', $item->id) }}" 
                                                 class="text-yellow-500 hover:text-yellow-600 font-medium mr-4">
-                                                ✏ Edit
+                                                Edit
                                             </a>
                                             <form action="{{ route('competition-category.destroy', $item->id) }}" method="POST" class="inline">
                                                 @csrf
@@ -42,7 +42,7 @@
                                                 <button type="submit" 
                                                     class="text-red-500 hover:text-red-600 font-medium"
                                                     onclick="return confirm('Apakah Anda yakin ingin menghapus kategori ini?')">
-                                                    🗑 Hapus
+                                                    Hapus
                                                 </button>
                                             </form>
                                         </td>

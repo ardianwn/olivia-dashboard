@@ -31,7 +31,7 @@
                                     <td class="py-3 px-6 text-gray-800">
                                         <span class="px-3 py-1 text-white rounded-lg
                                             @if($item->status_verifikasi == 'pending') bg-yellow-500
-                                            @elseif($item->status_verifikasi == 'approve') bg-green-500
+                                            @elseif($item->status_verifikasi == 'valid') bg-green-500
                                             @else ($item->status_verifikasi == 'suspend') bg-red-500 @endif">
                                             {{ ucfirst($item->status_verifikasi) }}
                                         </span>
@@ -39,11 +39,11 @@
                                     <td class="py-3 px-6 text-center">
                                         <a 
                                            class="text-green-500 hover:text-green-600 font-medium mr-4">
-                                            ✅ Verifikasi
+                                            Terima
                                         </a>
                                         <a 
                                            class="text-red-500 hover:text-red-600 font-medium">
-                                            ❌ Tolak
+                                            Tolak
                                         </a>
                                     </td>
                                 </tr>
