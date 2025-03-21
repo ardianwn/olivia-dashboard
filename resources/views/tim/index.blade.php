@@ -25,11 +25,11 @@
                 <div class="flex justify-between items-center mb-4">
                     <h3 class="text-lg font-semibold">Tim yang Terdaftar</h3>
                     @if (Auth::user()->tim === null)
-                        <a href="{{ route('tim.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded shadow hover:bg-blue-700 transition">
+                        <a href="{{ route('tim.create') }}" class="bg-blue-700 hover:bg-blue-600 font-medium mr-4 px-3 py-1 text-white rounded-lg">
                             + Buat Tim
                         </a>
                     @else
-                    <a href="{{ route('anggota.index') }}" class="bg-blue-500 text-white px-4 py-2 rounded shadow hover:bg-blue-700 transition">
+                    <a href="{{ route('anggota.index') }}" class="bg-blue-700 hover:bg-blue-600 font-medium mr-4 px-3 py-1 text-white rounded-lg">
                         Lanjut
                     </a>
                     @endif
@@ -62,16 +62,10 @@
                                     <td class="border border-gray-300 px-4 py-2">
                                         <div class="flex justify-center space-x-2">
                                             @if ($t->id_ketua === auth()->id()) 
-                                                <a href="{{ route('tim.edit', $t->id) }}" class="text-blue-500 hover:underline mx-2">
+                                                <a href="{{ route('tim.edit', $t->id) }}" class="bg-orange-500 hover:bg-orange-400 font-medium mr-4 px-3 py-1 text-white rounded-lg">
                                                     Edit 
                                                 </a> 
                                             @endif
-                                            {{-- <form action="{{ route('tim.destroy', $t->id) }}" method="POST">
-                                                @csrf @method('DELETE')
-                                                <button type="submit" class="text-red-500 hover:underline"" onclick="return confirm('Yakin ingin menghapus tim ini?')">
-                                                    Hapus
-                                                </button>
-                                            </form> --}}
                                         </div>
                                     </td>
                                 </tr>

@@ -24,7 +24,7 @@
                         <input type="number" name="jumlah_anggota_maksimal" value="{{ $kategori->jumlah_anggota_maksimal }}" class="mt-1 block w-full p-2 border-gray-300 rounded-md" min="1" required>
                     </div>
 
-                    <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md">
+                    <button type="submit" class="bg-blue-700 hover:bg-blue-600 text-white px-3 py-1 rounded-lg">
                         Update
                     </button>
                 </form>

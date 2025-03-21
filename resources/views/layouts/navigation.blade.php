@@ -100,35 +100,63 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
+        @if(Auth::user()->role === 'ketua_tim')
+                        <x-responsive-nav-link :href="route('ketua.dashboard')" :active="request()->routeIs('ketua.dashboard')">
+                            {{ __('Dashboard') }}
+                        </x-responsive-nav-link>
+                        <x-responsive-nav-link :href="route('tim.index')" :active="request()->routeIs('tim.index')">
+                            {{ __('Tim') }}
+                        </x-responsive-nav-link>
+                        <x-responsive-nav-link :href="route('anggota.index')" :active="request()->routeIs('anggota.index')">
+                            {{ __('Anggota') }}
+                        </x-responsive-nav-link>
+                        <x-responsive-nav-link :href="route('pembayaran.index')" :active="request()->routeIs('pembayaran.index')">
+                            {{ __('Pembayaran') }}
+                        </x-responsive-nav-link>
+                        <x-responsive-nav-link :href="route('berkas.index')" :active="request()->routeIs('berkas.index')">
+                            {{ __('Berkas') }}
+                        </x-responsive-nav-link>
+                        <x-responsive-nav-link :href="route('final.submit.index')" :active="request()->routeIs('final.submit.index')">
+                            {{ __('Preview') }}
+                        </x-responsive-nav-link>
+                    @endif
 
-            @if(Auth::user()->role === 'ketua_tim')
-                <x-responsive-nav-link :href="route('tim.index')">
-                    {{ __('Tim') }}
-                </x-responsive-nav-link>
-            @endif
+                    @if(Auth::user()->role === 'admin')
+                        <!-- Link ke Dashboard Admin -->
+                        <x-responsive-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
+                            {{ __('Dashboard') }}
+                        </x-responsive-nav-link>
 
-            @if(Auth::user()->role === 'admin')
-                <x-responsive-nav-link :href="route('admin.dashboard')">
-                    {{ __('Admin Dashboard') }}
-                </x-responsive-nav-link>
-            @endif
+                        <!-- Link ke Manajemen Pembayaran -->
+                        <x-responsive-nav-link :href="route('payment-management.index')" :active="request()->routeIs('payment-management.index')">
+                            {{ __('Pembayaran') }}
+                        </x-responsive-nav-link>
+                        
+                        <!-- Link ke Verifikasi Berkas -->
+                        <x-responsive-nav-link :href="route('document-verification.index')" :active="request()->routeIs('document-verification.index')">
+                            {{ __('Berkas') }}
+                        </x-responsive-nav-link>
+
+                        <!-- Link ke Pengelolaan Kategori Lomba -->
+                        <x-responsive-nav-link :href="route('competition-category.index')" :active="request()->routeIs('competition-category.index')">
+                            {{ __('Kategori') }}
+                        </x-responsive-nav-link>
+
+                        <!-- Link ke Laporan Pendaftaran -->
+                        <x-responsive-nav-link :href="route('report.index')" :active="request()->routeIs('report.index')">
+                            {{ __('Laporan') }}
+                        </x-responsive-nav-link>
+                    @endif
         </div>
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
             <div class="px-4">
-                <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
-                <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+                <div class="font-medium text-base text-white">{{ Auth::user()->name }}</div>
+                <div class="font-medium text-sm text-white">{{ Auth::user()->email }}</div>
             </div>
 
             <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile.edit')">
-                    {{ __('Profile') }}
-                </x-responsive-nav-link>
-
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf

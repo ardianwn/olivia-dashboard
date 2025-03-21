@@ -31,9 +31,9 @@
                                     </td>
                                     <td class="py-3 px-6">
                                         <span class="px-3 py-1 text-white rounded-lg
-                                            @if($item->status_verifikasi == 'pending') bg-yellow-500
-                                            @elseif($item->status_verifikasi == 'valid') bg-green-500
-                                            @else ($item->status_verifikasi == 'suspend') bg-red-500 @endif">
+                                            @if($item->status_verifikasi == 'pending') bg-orange-400
+                                            @elseif($item->status_verifikasi == 'valid') bg-green-700
+                                            @else ($item->status_verifikasi == 'suspend') bg-red-700 @endif">
                                             {{ ucfirst($item->status_verifikasi) }}
                                         </span>
                                     </td>
@@ -44,11 +44,11 @@
                                             @method('PUT')
                                             <td class="py-3 px-6 text-center">
                                                 <button  type="submit" name="status" value="valid" 
-                                                    class="text-green-500 hover:text-green-600 font-medium mr-4">
+                                                    class="bg-green-700 hover:bg-green-600 font-medium mr-4 px-3 py-1 text-white rounded-lg">
                                                     Terima
                                                 </button>
                                                 <button type="submit" name="status" value="rejected" 
-                                                    class="text-red-500 hover:text-red-600 font-medium">
+                                                    class="bg-red-700 hover:bg-red-600 font-medium px-3 py-1 text-white rounded-lg">
                                                     Tolak
                                                 </button>
                                             </td>

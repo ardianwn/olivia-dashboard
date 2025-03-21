@@ -35,7 +35,7 @@
                         Perbaiki Berkas
                     </a>
                     @elseif ($b->status_verifikasi == 'valid')
-                    <a href="{{ route('berkas.index') }}" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">
+                    <a href="{{ route('final.submit.index') }}" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">
                         Lanjut
                     </a>
                     @endif
@@ -70,7 +70,7 @@
                                 <td class="border border-gray-300 px-4 py-2">
                                     @if ($b->pengesahan)
                                     <a href="{{ asset('storage/' . $b->pengesahan) }}" target="_blank" class="text-blue-600 hover:underline">
-                                        Download
+                                        Lihat
                                     </a>
                                     @else
                                     <span class="text-gray-500">Tidak tersedia</span>
@@ -80,7 +80,7 @@
                                 <td class="border border-gray-300 px-4 py-2">
                                     @if ($b->orisinalitas)
                                     <a href="{{ asset('storage/' . $b->orisinalitas) }}" target="_blank" class="text-blue-600 hover:underline">
-                                        Download
+                                        Lihat
                                     </a>
                                     @else
                                     <span class="text-gray-500">Tidak tersedia</span>
@@ -90,7 +90,7 @@
                                 <td class="border border-gray-300 px-4 py-2">
                                     @if ($b->biodata)
                                     <a href="{{ asset('storage/' . $b->biodata) }}" target="_blank" class="text-blue-600 hover:underline">
-                                        Download
+                                        Lihat
                                     </a>
                                     @else
                                     <span class="text-gray-500">Tidak tersedia</span>
@@ -100,7 +100,7 @@
                                 <td class="border border-gray-300 px-4 py-2">
                                     @if ($b->form_pendaftaran)
                                     <a href="{{ asset('storage/' . $b->form_pendaftaran) }}" target="_blank" class="text-blue-600 hover:underline">
-                                        Download
+                                        Lihat
                                     </a>
                                     @else
                                     <span class="text-gray-500">Tidak tersedia</span>
@@ -120,18 +120,18 @@
                                 <!-- Status Verifikasi -->
                                 <td class="border border-gray-300 px-4 py-2">
                                     @if ($b->status_verifikasi == 'pending')
-                                    <span class="px-2 py-1 bg-yellow-500 text-white rounded">Pending</span>
+                                    <span class="px-2 py-1 bg-orange-400 text-white rounded-lg">Pending</span>
                                     @elseif ($b->status_verifikasi == 'valid')
-                                    <span class="px-2 py-1 bg-green-500 text-white rounded">Diterima</span>
+                                    <span class="px-2 py-1 bg-green-700 text-white rounded-lg">Diterima</span>
                                     @else
-                                    <span class="px-2 py-1 bg-red-500 text-white rounded">Ditolak</span>
+                                    <span class="px-2 py-1 bg-red-700 text-white rounded-lg">Ditolak</span>
                                     @endif
                                 </td>
 
                                 <!-- Aksi -->
                                 <td class="border border-gray-300 px-4 py-2">
                                     @if ($b->status_verifikasi == 'rejected')
-                                    <a href="{{ route('berkas.edit', $b->id) }}" class="text-blue-500 hover:underline">
+                                    <a href="{{ route('berkas.edit', $b->id) }}" class="bg-orange-400 hover:bg-orange-300 font-medium mr-4 px-3 py-1 text-white rounded-lg">
                                         Edit
                                     </a>
                                     @elseif ($b->status_verifikasi == 'pending')

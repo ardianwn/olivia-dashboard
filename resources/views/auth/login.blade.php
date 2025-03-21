@@ -5,8 +5,10 @@
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
+        <div class="mt-4 mb-8 text-center font-bold text-3xl"><h1>Sign In</h1></div>
+
         <!-- Email Address -->
-        <div>
+        <div class="mt-4">
             <x-input-label for="email" :value="__('Email')" />
             <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
@@ -32,14 +34,14 @@
             </label>
         </div>
 
-        <!-- Tombol Login Paling Atas -->
-        <div class="mt-4 flex justify-start">
-            <x-primary-button class="ms-3 ">
+        <!-- Tombol Login -->
+        <div class="mt-4">
+            <x-primary-button  class="w-full justify-center bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300">
                 {{ __('Log in') }}
             </x-primary-button>
         </div>
 
-        <!-- Forgot Password di bawahnya -->
+        <!-- Forgot Password -->
         <div class="mt-2 flex justify-center text-center">
             @if (Route::has('password.request'))
                 <a class="underline text-sm text-gray-600 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">

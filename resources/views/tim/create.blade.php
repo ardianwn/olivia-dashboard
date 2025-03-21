@@ -27,19 +27,19 @@
                     <div class="mb-4">
                         <label class="block font-semibold">Nama Tim</label>
                         <input type="text" name="nama_tim" required
-                            class="w-full border p-2 rounded focus:ring focus:ring-blue-200">
+                            class="w-full border p-2 rounded focus:ring focus:ring-blue-700">
                     </div>
 
                     <div class="mb-4">
                         <label class="block font-semibold">Nama Kampus</label>
                         <input type="text" name="nama_kampus" required
-                            class="w-full border p-2 rounded focus:ring focus:ring-blue-200">
+                            class="w-full border p-2 rounded focus:ring focus:ring-blue-700">
                     </div>
 
                     <div class="mb-4">
                         <label class="block font-semibold">Cabang Lomba</label>
                         <select name="cabang_lomba" required
-                            class="w-full border p-2 rounded focus:ring focus:ring-blue-200">
+                            class="w-full border p-2 rounded focus:ring focus:ring-blue-700">
                             <option value="" disabled selected>Pilih Cabang Lomba</option>
                             @foreach ($kategoriLomba as $kategori)
                                 <option value="{{ $kategori->id }}">{{ $kategori->nama_kategori }}</option>
@@ -50,7 +50,7 @@
                     <div class="mb-4">
                         <label class="block font-semibold">Foto Tim</label>
                         <input type="file" name="foto_tim" required
-                            class="w-full border p-2 rounded focus:ring focus:ring-blue-200">
+                            class="w-full border p-2 rounded focus:ring focus:ring-blue-700">
                     </div>
                     <x-primary-button>Create</x-primary-button>
                 </form>

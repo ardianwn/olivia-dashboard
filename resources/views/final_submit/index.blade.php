@@ -60,7 +60,17 @@
                 </table>
             </div>
 
-            <div class="overflow-x-auto">
+            <div class="mb-6">
+                <h4 class="text-md font-semibold">Bukti Pembayaran</h4>
+                @if ($pembayaran)
+                    <img src="{{ asset('storage/' . $pembayaran->bukti_pembayaran) }}" class="w-48 h-auto mt-2">
+                @else
+                    <span class="text-red-500">Belum Upload</span>
+                @endif
+            </div>
+
+            <div class="overflow-x-auto mb-6">
+                <h4 class="text-md mb-2 font-semibold">Bukti Pembayaran</h4>
                     <table class="w-full table-auto border-collapse border border-gray-300">
                         <thead>
                             <tr class="bg-gray-200">
@@ -85,7 +95,7 @@
                                 <td class="border border-gray-300 px-4 py-2">
                                     @if ($b->pengesahan)
                                     <a href="{{ asset('storage/' . $b->pengesahan) }}" target="_blank" class="text-blue-600 hover:underline">
-                                        Download
+                                        Lihat
                                     </a>
                                     @else
                                     <span class="text-gray-500">Tidak tersedia</span>
@@ -95,7 +105,7 @@
                                 <td class="border border-gray-300 px-4 py-2">
                                     @if ($b->orisinalitas)
                                     <a href="{{ asset('storage/' . $b->orisinalitas) }}" target="_blank" class="text-blue-600 hover:underline">
-                                        Download
+                                        Lihat
                                     </a>
                                     @else
                                     <span class="text-gray-500">Tidak tersedia</span>
@@ -105,7 +115,7 @@
                                 <td class="border border-gray-300 px-4 py-2">
                                     @if ($b->biodata)
                                     <a href="{{ asset('storage/' . $b->biodata) }}" target="_blank" class="text-blue-600 hover:underline">
-                                        Download
+                                        Lihat
                                     </a>
                                     @else
                                     <span class="text-gray-500">Tidak tersedia</span>
@@ -115,7 +125,7 @@
                                 <td class="border border-gray-300 px-4 py-2">
                                     @if ($b->form_pendaftaran)
                                     <a href="{{ asset('storage/' . $b->form_pendaftaran) }}" target="_blank" class="text-blue-600 hover:underline">
-                                        Download
+                                        Lihat
                                     </a>
                                     @else
                                     <span class="text-gray-500">Tidak tersedia</span>
@@ -141,19 +151,12 @@
                     </table>
                 </div>
 
-            <div class="mb-6">
-                <h4 class="text-md font-semibold">Bukti Pembayaran</h4>
-                @if ($pembayaran)
-                    <img src="{{ asset('storage/' . $pembayaran->bukti_pembayaran) }}" class="w-48 h-auto mt-2">
-                @else
-                    <span class="text-red-500">Belum Upload</span>
-                @endif
-            </div>
+
             @if ($tim->status_final_submit == 0)
                     <form action="{{ route('final.submit') }}" method="POST"
                         onsubmit="return confirm('Setelah final submit, data tidak bisa diubah lagi. Lanjutkan?')">
                         @csrf
-                        <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded">Final Submit</button>
+                        <button type="submit" class="bg-green-700 hover:bg-green-600 font-medium mr-4 px-3 py-1 text-white rounded-lg">Final Submit</button>
                     </form>
             @else
                 <p class="text-lg text-green-600 font-bold">Sudah Final Submit. Tidak dapat mengubah data.</p>

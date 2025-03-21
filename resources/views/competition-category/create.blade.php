@@ -25,7 +25,7 @@
                             <label for="jumlah_anggota_maksimal" class="block text-sm font-medium text-gray-700">Jumlah Anggota Maksimal</label>
                             <input type="number" name="jumlah_anggota_maksimal" class="mt-1 block w-full p-2 border-gray-300 rounded-md" min="1" required>
                         </div>
-                        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md">Simpan</button>
+                        <button type="submit" class="bg-blue-700 text-white px-3 py-1 rounded-lg">Simpan</button>
                     </form>
                 </div>
             </div>

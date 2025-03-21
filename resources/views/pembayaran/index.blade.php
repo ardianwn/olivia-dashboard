@@ -25,12 +25,12 @@
                     <h3 class="text-lg font-semibold">Detail Bukti Pembayaran</h3>
                     @if (empty($pembayaran))
                         <a href="{{ route('pembayaran.create') }}"
-                            class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">
+                            class="bg-blue-700 text-white px-3 py-1 rounded-lg hover:bg-blue-600">
                             Upload Bukti Pembayaran
                         </a>
                     @elseif($pembayaran && $pembayaran->status_verifikasi == 'valid')
                         <a href="{{ route('berkas.index') }}"
-                            class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">
+                            class="bg-blue-700 text-white px-3 py-1 rounded-lg hover:bg-blue-600">
                             Lanjut
                         </a>
                     @endif
@@ -52,11 +52,11 @@
                                     <td class="border border-gray-300 px-4 py-2">1</td>
                                     <td class="border border-gray-300 px-4 py-2">
                                         @if ($pembayaran->status_verifikasi == 'pending')
-                                            <span class="px-2 py-1 bg-yellow-500 text-white rounded">Pending</span>
+                                            <span class="px-2 py-1 bg-orange-400 text-white rounded-lg">Pending</span>
                                         @elseif ($pembayaran->status_verifikasi == 'valid')
-                                            <span class="px-2 py-1 bg-green-500 text-white rounded">Diterima</span>
+                                            <span class="px-2 py-1 bg-green-700 text-white rounded-lg">Diterima</span>
                                         @else
-                                            <span class="px-2 py-1 bg-red-500 text-white rounded">Ditolak</span>
+                                            <span class="px-2 py-1 bg-red-700 text-white rounded-lg">Ditolak</span>
                                         @endif
                                     </td>
                                     <td class="border border-gray-300 px-4 py-2">

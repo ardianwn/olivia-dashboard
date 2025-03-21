@@ -30,7 +30,7 @@
                     <div class="mt-4">
                         <form action="{{ route('report.export') }}" method="POST">
                             @csrf
-                            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md">Unduh Laporan (Excel)</button>
+                            <button type="submit" class="bg-green-700 hover:bg-green-600 font-medium mr-4 px-3 py-1 text-white rounded-lg">Unduh Excel </button>
                         </form>
                     </div>
                 </div>

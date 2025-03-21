@@ -26,17 +26,17 @@
 
                     <div class="mb-4">
                         <label class="block font-semibold">Nama Tim</label>
-                        <input type="text" name="nama_tim" value="{{ $tim->nama_tim }}" required class="w-full border p-2 rounded focus:ring focus:ring-blue-200">
+                        <input type="text" name="nama_tim" value="{{ $tim->nama_tim }}" required class="w-full border p-2 rounded focus:ring focus:ring-blue-700">
                     </div>
 
                     <div class="mb-4">
                         <label class="block font-semibold">Nama Kampus</label>
-                        <input type="text" name="nama_kampus" value="{{ $tim->nama_kampus }}" required class="w-full border p-2 rounded focus:ring focus:ring-blue-200">
+                        <input type="text" name="nama_kampus" value="{{ $tim->nama_kampus }}" required class="w-full border p-2 rounded focus:ring focus:ring-blue-700">
                     </div>
                     <div class="mb-4">
                         <label class="block font-semibold">Cabang Lomba</label>
                         <select name="cabang_lomba" required
-                            class="w-full border p-2 rounded focus:ring focus:ring-blue-200">
+                            class="w-full border p-2 rounded focus:ring focus:ring-blue-700">
                             <option value="" disabled selected>Pilih Cabang Lomba</option>
                             @foreach ($kategoriLomba as $kategori)
                                 <option value="{{ $kategori->id }}">{{ $kategori->nama_kategori }}</option>
@@ -44,9 +44,9 @@
                         </select>
                     </div>
 
-                    <button type="submit" class="w-full bg-yellow-500 text-white px-4 py-2 rounded shadow hover:bg-yellow-700 transition">
+                    <x-primary-button>
                         Update Tim
-                    </button>
+                    </x-primary-button>
                 </form>
 
             </div>

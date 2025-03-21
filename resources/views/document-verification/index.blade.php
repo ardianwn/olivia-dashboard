@@ -24,7 +24,11 @@
                         <thead class="bg-gray-100">
                             <tr class="border-b border-gray-200">
                                 <th class="py-3 px-6 text-left text-gray-600 font-semibold">Nama Tim</th>
-                                <th class="py-3 px-6 text-left text-gray-600 font-semibold">Berkas</th>
+                                <th class="border border-gray-300 px-4 py-2">Lembar Pengesahan</th>
+                                <th class="border border-gray-300 px-4 py-2">Pernyataan Orisinalitas</th>
+                                <th class="border border-gray-300 px-4 py-2">Biodata</th>
+                                <th class="border border-gray-300 px-4 py-2">Formulir Pendaftaran</th>
+                                <th class="border border-gray-300 px-4 py-2">Karya</th>
                                 <th class="py-3 px-6 text-left text-gray-600 font-semibold">Status Verifikasi</th>
                                 <th class="py-3 px-6 text-left text-gray-600 font-semibold text-center">Aksi</th>
                             </tr>
@@ -34,16 +38,35 @@
                             <tr class="border-b border-gray-200 hover:bg-gray-50 transition">
                                 <td class="py-3 px-6 text-gray-800">{{ $item->tim->nama_tim }}</td>
                                 <td class="py-3 px-6">
-                                    <a href="{{ asset('storage/' . $item->url_file) }}" target="_blank"
-                                        class="text-blue-500 hover:text-blue-700 font-medium">
-                                        📄 {{ $item->nama_file }}
+                                    <a href="{{ asset('storage/' . $item->pengesahan) }}" target="_blank" class="text-blue-600 hover:underline">
+                                        Lihat
+                                    </a>
+                                </td>
+                                <td class="py-3 px-6">
+                                <a href="{{ asset('storage/' . $item->orisinalitas) }}" target="_blank" class="text-blue-600 hover:underline">
+                                        Lihat
+                                    </a>
+                                </td>
+                                <td class="py-3 px-6">
+                                <a href="{{ asset('storage/' . $item->biodata) }}" target="_blank" class="text-blue-600 hover:underline">
+                                        Lihat
+                                    </a>
+                                </td>
+                                <td class="py-3 px-6">
+                                <a href="{{ asset('storage/' . $item->form_pendaftaran) }}" target="_blank" class="text-blue-600 hover:underline">
+                                        Lihat
+                                    </a>
+                                </td>
+                                <td class="py-3 px-6">
+                                <a href="{{ $item->url_file }}" target="_blank" class="text-blue-600 hover:underline">
+                                        Lihat Karya
                                     </a>
                                 </td>
                                 <td class="py-3 px-6 text-gray-800">
                                     <span class="px-3 py-1 text-white rounded-lg
-                                            @if($item->status_verifikasi == 'pending') bg-yellow-500
-                                            @elseif($item->status_verifikasi == 'valid') bg-green-500
-                                            @else ($item->status_verifikasi == 'suspend') bg-red-500 @endif">
+                                            @if($item->status_verifikasi == 'pending') bg-orange-400
+                                            @elseif($item->status_verifikasi == 'valid') bg-green-700
+                                            @else ($item->status_verifikasi == 'suspend') bg-red-700 @endif">
                                         {{ ucfirst($item->status_verifikasi) }}
                                     </span>
                                 </td>
@@ -53,11 +76,11 @@
                                     @method('PUT')
                                     <td class="py-3 px-6 text-center">
                                         <button  type="submit" name="status" value="valid" 
-                                            class="text-green-500 hover:text-green-600 font-medium mr-4">
+                                            class="bg-green-700 hover:bg-green-600 font-medium mr-4 px-3 py-1 text-white rounded-lg">
                                             Terima
                                         </button>
                                         <button type="submit" name="status" value="rejected" 
-                                            class="text-red-500 hover:text-red-600 font-medium">
+                                            class="bg-red-700 hover:bg-red-600 font-medium px-3 py-1 text-white rounded-lg">
                                             Tolak
                                         </button>
                                     </td>

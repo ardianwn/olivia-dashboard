@@ -17,9 +17,9 @@
                     <div class="bg-gray-100 shadow-md rounded-lg p-4 text-center">
                         <!-- Foto Anggota -->
                         @if ($member->foto_anggota)
-                        <img src="{{ asset('storage/' . $member->foto_anggota) }}" alt="Foto Anggota" class="w-24 h-24 rounded-full mx-auto border-4 border-red-500">
+                        <img src="{{ asset('storage/' . $member->foto_anggota) }}" alt="Foto Anggota" class="w-24 h-24 rounded-full mx-auto border-4 border-blue-700">
                         @else
-                        <img src="{{ asset('images/default-profile.png') }}" alt="Default Foto" class="w-24 h-24 rounded-full mx-auto border-4 border-red-500">
+                        <img src="{{ asset('images/default-profile.png') }}" alt="Default Foto" class="w-24 h-24 rounded-full mx-auto border-4 border-blue-600">
                         @endif
 
                         <!-- Role Anggota -->
@@ -45,7 +45,7 @@
                             @endif
 
                             <a href="{{ route('anggota.edit', $member->id) }}"
-                                class="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-700">
+                                class="bg-blue-700 text-white px-3 py-1 rounded-md hover:bg-blue-600">
                                 Edit
                             </a>
 
@@ -53,7 +53,7 @@
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit"
-                                    class="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-700"
+                                    class="bg-red-700 text-white px-3 py-1 rounded-md hover:bg-red-600"
                                     onclick="return confirm('Yakin ingin menghapus anggota ini?')">
                                     Delete
                                 </button>
@@ -66,7 +66,7 @@
                     @if ($data < $max)
                         <div class="bg-gray-100 shadow-md rounded-lg p-4 text-center">
                         <!-- Foto Anggota -->
-                        <img src="{{ asset('brone.png' ) }}" alt="Foto Anggota" class="w-24 h-24 rounded-full mx-auto border-4 border-red-500">
+                        <img src="{{ asset('brone.png' ) }}" alt="Foto Anggota" class="w-24 h-24 rounded-full mx-auto border-4 border-blue-700">
 
 
                         <!-- Role Anggota -->
@@ -80,7 +80,7 @@
 
                         <!-- Tombol Aksi -->
                         <div class="mt-4 flex justify-center gap-2">
-                            <a href="{{ route('anggota.create') }}" class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-700">
+                            <a href="{{ route('anggota.create') }}" class="bg-green-700 text-white px-3 py-1 rounded-md hover:bg-green-700">
                                 + Tambah Anggota
                             </a>
                         </div>

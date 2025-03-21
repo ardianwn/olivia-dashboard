@@ -12,7 +12,7 @@
                     <div class="flex justify-between items-center mb-4">
                         <h3 class="text-lg font-semibold text-gray-700">Daftar Kategori</h3>
                         <a href="{{ route('competition-category.create') }}" 
-                            class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-md shadow-md">
+                            class="bg-green-700 hover:bg-green-600 font-medium mr-4 px-3 py-1 text-white rounded-lg">
                             + Tambah Kategori
                         </a>
                     </div>
@@ -33,17 +33,17 @@
                                         <td class="py-3 px-6 text-gray-800">{{ $item->jumlah_anggota_maksimal }}</td>
                                         <td class="py-3 px-6 text-center">
                                             <a href="{{ route('competition-category.edit', $item->id) }}" 
-                                                class="text-yellow-500 hover:text-yellow-600 font-medium mr-4">
+                                                class="bg-orange-400 hover:bg-orange-300 font-medium mr-4 px-3 py-1 text-white rounded-lg">
                                                 Edit
                                             </a>
                                             <form action="{{ route('competition-category.destroy', $item->id) }}" method="POST" class="inline">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" 
-                                                    class="text-red-500 hover:text-red-600 font-medium"
+                                                <a type="submit" 
+                                                    class="bg-red-700 hover:bg-red-600 font-medium mr-4 px-3 py-1 text-white rounded-lg cursor-pointer"
                                                     onclick="return confirm('Apakah Anda yakin ingin menghapus kategori ini?')">
                                                     Hapus
-                                                </button>
+                                                </a>
                                             </form>
                                         </td>
                                     </tr>
